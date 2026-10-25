@@ -1,0 +1,11 @@
+model,short,variant,fmt,width,config,task,metric,value
+Qwen3-4B,Qwen3-4B,base,BF16,16,BF16,mmlu,acc,0.74912
+Qwen3-4B,Qwen3-4B,base,BF16,16,BF16,wikitext,ppl,11.2837
+Qwen3-4B,Qwen3-4B,base,FP,16,FP16,mmlu,acc,0.75088
+Qwen3-4B,Qwen3-4B,base,FP,16,FP16,wikitext,ppl,11.2821
+Qwen3-4B,Qwen3-4B,base,FP,4,FP4,mmlu,acc,0.74211
+Qwen3-4B,Qwen3-4B,base,FP,4,FP4,wikitext,ppl,11.6016
+Qwen3-4B,Qwen3-4B,base,INT,16,INT16,mmlu,acc,0.75
+Qwen3-4B,Qwen3-4B,base,INT,16,INT16,wikitext,ppl,11.2809
+Qwen3-4B,Qwen3-4B,base,INT,4,INT4,mmlu,acc,0.68772
+Qwen3-4B,Qwen3-4B,base,INT,4,INT4,wikitext,ppl,16.7888

@@ -1,0 +1,11 @@
+model,short,variant,fmt,width,config,task,metric,value
+OLMo3-7B,OLMo3-7B,base,BF16,16,BF16,mmlu,acc,0.6693
+OLMo3-7B,OLMo3-7B,base,BF16,16,BF16,wikitext,ppl,15.5048
+OLMo3-7B,OLMo3-7B,base,FP,16,FP16,mmlu,acc,0.66842
+OLMo3-7B,OLMo3-7B,base,FP,16,FP16,wikitext,ppl,15.509
+OLMo3-7B,OLMo3-7B,base,FP,4,FP4,mmlu,acc,0.65439
+OLMo3-7B,OLMo3-7B,base,FP,4,FP4,wikitext,ppl,16.0267
+OLMo3-7B,OLMo3-7B,base,INT,16,INT16,mmlu,acc,0.66842
+OLMo3-7B,OLMo3-7B,base,INT,16,INT16,wikitext,ppl,15.5129
+OLMo3-7B,OLMo3-7B,base,INT,4,INT4,mmlu,acc,0.62544
+OLMo3-7B,OLMo3-7B,base,INT,4,INT4,wikitext,ppl,18.0871

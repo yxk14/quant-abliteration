@@ -1,0 +1,12 @@
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lrrrc@{}}
+\toprule
+Predictor & \makecell{$r$\\pooled} & \makecell{$r$\\partial} & $p$ & Screens? \\
+\midrule
+$\Delta$MMLU (pp) & -0.92 & -0.47 & 0.047 & \checkmark \\
+$\Delta$GSM8K (pp) & -0.75 & -0.12 & 0.633 & -- \\
+WikiText-2 PPL & +0.85 & +0.20 & 0.414 & -- \\
+$D_{\mathrm{KL}}$ vs.\ reference & +0.93 & +0.47 & 0.048 & \checkmark \\
+$\rho$ (refusal recovery) & +0.86 & +0.60 & 0.009 & \checkmark \\
+\bottomrule
+\end{tabular}

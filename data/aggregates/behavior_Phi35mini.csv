@@ -1,0 +1,8 @@
+model,short,variant,fmt,width,config,n,refusal_rate,completion_rate,adj_refusal_rate,dfr
+Phi35mini,Phi35mini,base,BF16,16,BF16,100,65.0,8.0,87.5,0.0
+Phi35mini,Phi35mini,base,FP,16,FP16,100,64.0,10.0,90.0,5.0
+Phi35mini,Phi35mini,base,FP,8,FP8,100,53.0,5.0,40.0,14.0
+Phi35mini,Phi35mini,base,FP,4,FP4,100,83.0,5.0,80.0,28.0
+Phi35mini,Phi35mini,base,INT,16,INT16,100,67.0,7.0,85.71,4.0
+Phi35mini,Phi35mini,base,INT,8,INT8,100,62.0,7.0,85.71,9.0
+Phi35mini,Phi35mini,base,INT,4,INT4,100,35.0,5.0,60.0,44.0

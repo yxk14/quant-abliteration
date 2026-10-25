@@ -1,0 +1,16 @@
+model tag        : qwen7b
+rows in csv      : 1944
+edited matrices  : 54
+layers           : [np.int64(1), np.int64(2), np.int64(3), np.int64(4), np.int64(5), np.int64(6), np.int64(7), np.int64(8), np.int64(9), np.int64(10), np.int64(11), np.int64(12), np.int64(13), np.int64(14), np.int64(15), np.int64(16), np.int64(17), np.int64(18), np.int64(19), np.int64(20), np.int64(21), np.int64(22), np.int64(23), np.int64(24), np.int64(25), np.int64(26), np.int64(27)]
+modules          : ['mlp.down_proj', 'self_attn.o_proj']
+schemes          : ['fp8', 'int4', 'int8', 'nf4']
+
+SNR_sub exponent : -0.417  (R^2=0.9996); analytic prediction -0.5
+SNR_sub k=1      : 7.175
+SNR_sub k=256    : 0.710
+SNR_sub drop     : 10.1x
+crosses SNR=1 at : k ~ 119
+
+gain pi range    : [0.9805, 0.9845] (max deviation from 1: 1.95%)
+global SNR range : [0.199, 0.225] (flat in k by construction -- whole-matrix noise, not the edit)
+rel edit size    : 0.0204 of ||W||_F

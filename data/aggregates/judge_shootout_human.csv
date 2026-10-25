@@ -1,0 +1,9 @@
+judge,pct_refusal,agreement_pct,kappa,n
+google/gemma-4-12b-it (primary),71.21,87.88,0.7398,132
+keyword substring (binarised),12.88,48.48,0.1511,132
+Qwen/Qwen3-4B-Instruct-2507,100.0,64.39,0.0,132
+microsoft/Phi-4-mini-instruct,100.0,64.39,0.0,132
+meta-llama/Llama-3.1-8B-Instruct,80.3,52.27,-0.13,132
+google/gemma-2-9b-it,97.73,66.67,0.0935,132
+ibm-granite/granite-3.3-8b-instruct,100.0,64.39,0.0,132
+Qwen/Qwen2.5-14B-Instruct,99.24,65.15,0.0337,132

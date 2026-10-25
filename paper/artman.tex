@@ -1,0 +1,508 @@
+%% ARTMAN 2026 @ ACSAC -- CAMERA-READY (conditionally accepted 2026-10-16;
+%% due 2026-10-31 AoE). Required: [conference,compsoc]{IEEEtran}; 10 pages
+%% excluding references and appendices, +5 for those; LLM Usage Statement at
+%% the end, excluded from the page limit; artifact link mandatory.
+%% Submitted version preserved as artman_submitted_2026-09-14.tex/.pdf.
+%% 2026-10-25: title, headings and prose revised per CAMERA-READY-EDITS.md;
+%% pre-edit source preserved as artman_pre_deai_2026-10-25.tex/.pdf.
+\documentclass[conference,compsoc,letterpaper]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite,amsmath,amssymb,amsfonts,graphicx,booktabs,url,textcomp}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{float,stfloats,multirow,array}
+\usepackage[hidelinks]{hyperref}
+
+%% Camera-ready artifact pointers. ARTIFACT-TODO: replace both with the real,
+%% resolving URLs before submission (chairs: no link => rejection).
+\newcommand{\artifacturl}{https://github.com/yxk14/quant-abliteration}
+\newcommand{\artifactdoi}{https://doi.org/10.5281/zenodo.ARTIFACT-TODO}
+
+%% Every measured number is emitted directly from the judged generation files by
+%% the analysis scripts; none is transcribed by hand.
+%%
+%% Framing (2026-09-13, third and final): the thesis is that rounding cannot
+%% erase a COHERENT weight edit, which is why no quantizer undoes abliteration.
+%% The antagonist is Zhang et al. (ICLR 2025), who show quantization reverts
+%% unlearning and explain it with a per-weight argument we test and refute.
+%% The language switch is the explanation of ONE anomalous cell, not the theme.
+
+\begin{document}
+
+\title{Quantization Does Not Undo Abliteration:\\
+A Measurement Study of Refusal in Compressed Language Models}
+
+\author{%
+\IEEEauthorblockN{Yoohwan Kim}
+\IEEEauthorblockA{University of Nevada, Las Vegas\\
+Las Vegas, NV, USA\\
+\texttt{Yoohwan.Kim@unlv.edu}}
+\and
+\IEEEauthorblockN{Juyeon Jo}
+\IEEEauthorblockA{University of Nevada, Las Vegas\\
+Las Vegas, NV, USA\\
+\texttt{Juyeon.Jo@unlv.edu}}
+\and
+\IEEEauthorblockN{Jayden Kim}
+\IEEEauthorblockA{West Career and Technical Academy\\
+Las Vegas, NV, USA\\
+\texttt{jjayden.kkim@gmail.com}}}
+
+\maketitle
+
+\begin{abstract}
+Abliteration removes refusal from an open-weight model with a rank-one weight
+edit. Zhang et al. report that quantization undoes machine unlearning, and their
+per-weight explanation predicts the same for abliteration, whose edit is far
+smaller than a 4-bit quantization step. We test that prediction on two model
+families under GPTQ, AWQ, GGUF Q4\_K\_M, NF4 and uniform round-to-nearest from
+8 to 3 bits, with $46{,}600$ generations scored by a judge validated against
+human labels. We found that no quantizer restores refusal. Under the three deployed 4-bit
+methods no change in refusal rate remains statistically significant after
+Bonferroni correction, and none moves an abliterated checkpoint toward its base
+model. Per-channel INT4 rounding raises refusal by a few points, partly by
+switching the model's output language. In weight space, rounding transmits any
+sub-step edit with unit gain; what decides whether the edit survives in effect
+is its rank, because the rounding residue is spread over all $d$ directions and
+barely reaches a rank-one readout. Measured on the real edited matrices, the
+signal-to-noise ratio inside the edited subspace falls as roughly $k^{-1/2}$
+when the same edit energy is spread over $k$ directions. Compression should
+therefore not be relied on as a defense against abliteration.
+\end{abstract}
+
+\begin{IEEEkeywords} machine unlearning, safety alignment, abliteration, quantization, weight editing, GPTQ, AWQ, model auditing \end{IEEEkeywords}
+
+\section{Introduction} \label{sec:intro}
+
+Refusal behaviour in chat models is mediated to a good approximation by a single direction in the residual stream~\cite{arditi2024refusal}. Abliteration exploits this: project that direction out of the matrices that write to the residual stream and the model stops refusing, with no training run, no data, and a weight change of order $1\%$. Tooling has made it routine~\cite{heretic2025}, and abliterated checkpoints are published in quantity.
+
+Structurally this is a targeted unlearning edit: a specific behaviour is removed from a trained model by a surgical parameter change rather than by retraining, which places it alongside weight editing~\cite{rome2022,memit2023} and approximate unlearning~\cite{unlearn2023}. It therefore inherits the central concern of that literature. An edit that was never trained into the loss surface has no particular reason to be stable under later transformations of the weights, and quantization is the most universal of those transformations: essentially every locally deployed model is compressed to 8 or 4 bits first.
+
+For unlearning the worry is now established fact. Zhang et al.~\cite{zhang2025unlearnquant} show that quantizing an unlearned model recovers most of what it was supposed to forget, from $21\%$ of the forget set retained at full precision to $83\%$ at 4 bits, and that GPTQ and AWQ behave no better than naive rounding. Their explanation rests on a per-weight argument. Unlearning methods use small learning rates and utility constraints, so each weight moves by less than the quantization step; the original and unlearned weights then fall in the same quantization bin, the two models round to the same grid point, and the forgotten knowledge comes back with them.
+
+If that argument is general, it predicts that an abliterated checkpoint should also return toward its refusing original when quantized, because abliteration moves the weights even less than unlearning does. We measure whether it does, on the quantizers that are actually deployed rather than on a research proxy.
+
+However, we found that the prediction does not hold: none of the quantizers we tested restores refusal to an abliterated model. The premise of the per-weight argument is correct, in that the edit is some $100$ times below the quantization step and almost no weight changes its quantized value, but the conclusion does not follow from it, because rounding is not an averaging operation. A displacement below the step size decides \emph{which} weights sit close enough to a bin boundary to cross it, and those that cross move a full step in its direction, so the edit is reproduced in expectation. This holds for any edit. What makes abliteration survive in \emph{effect} is that it is rank one: the rounding residue is spread over every direction and barely touches the one direction the refusal decision reads.
+
+Our contributions in this paper are the following.
+
+\begin{itemize}
+\item \textbf{No deployed quantizer measurably restores refusal.} Across GPTQ,
+      AWQ and GGUF Q4\_K\_M on two abliterated checkpoints, no change in refusal
+      rate remains significant after Bonferroni correction, the largest raw
+      change is $2.2$ points, and the one nominally significant cell moves
+      refusal \emph{up} by under two points (\S\ref{sec:deployed}). Bit width is
+      not the variable either: round-to-nearest is flat from 16 bits to 5, and
+      the one quantizer that moves refusal at 4 bits, per-channel INT4 rounding,
+      does so partly by switching the model's output language to Chinese, where
+      a direct test shows the English-fitted edit had transferred anyway
+      (\S\ref{sec:bits}--\S\ref{sec:zh}).
+\item \textbf{Unit gain is a general property of rounding.} The
+      abliteration edit is $0.011$ of the 4-bit quantization step and moves
+      only $1.9\%$ of edited weights into a different bin, yet the two
+      quantized models still differ by it at unit gain. Unit gain holds for any
+      sub-step edit, so it does not by itself explain survival
+      (\S\ref{sec:dither}).
+\item \textbf{For norm-matched edits, rank decides whether the edit survives in
+      effect.} On the real edited matrices, using the real refusal direction and
+      the leading activation directions, the signal-to-noise ratio inside the
+      edited subspace falls as roughly $k^{-1/2}$ when the same edit energy is
+      spread over $k$ directions, while the gain stays at one
+      (\S\ref{sec:dither}). This is a weight-space measurement; we advance rank
+      as the predicted explanation for other post-hoc edits, including the
+      unlearning edits of Zhang et al., and we have not tested it on them.
+\item \textbf{Two supporting measurements} show that rank-one ablation perturbs
+      weights by order $1/\sqrt{d}$, so it cannot make a model intrinsically more
+      fragile under compression, and that quantization error is no more aligned
+      with the ablated direction than with a scale-matched control
+      (\S\ref{sec:rank1}, \S\ref{sec:noise}).
+\item \textbf{As a prerequisite for the measurements above,} we show that keyword
+      refusal detection would have inverted both behavioural results; every number
+      here therefore comes from a judge validated against reference labels (\S\ref{sec:classifier}).
+\end{itemize}
+
+\section{Background and Related Work}
+
+\textbf{Refusal directions and abliteration.} Arditi et al.~\cite{arditi2024refusal} establish the single-direction result across many chat models. This sits within representation engineering~\cite{repe2023} and alongside targeted weight editing~\cite{rome2022,memit2023} and approximate unlearning~\cite{unlearn2023}. Heretic~\cite{heretic2025} automates the search over ablation parameters under a KL constraint and is the tool we use. Comparative studies~\cite{abliterationcompare2025}, surgical variants~\cite{surgicalablation2026}, off-target effects~\cite{fafula2026scalpel}, and defenses, extended-refusal training~\cite{defense2025}, refusal aliases~\cite{aliases2026} and multi-directional formulations~\cite{multidir2026}, map the design space. Our $1/\sqrt{d}$ bound partly explains why those defenses work: they break the rank-one assumption it depends on. None of this work examines the effect of quantization.
+
+\textbf{Post-hoc edits under quantization.} The result we test against is Zhang et al.~\cite{zhang2025unlearnquant}, who show that quantization recovers unlearned knowledge, that this worsens at lower precision, and, in their Section 4.4, that GPTQ and AWQ behave like round-to-nearest because their calibration corpora are general rather than matched to the forget set. Their explanation is the per-weight bin-collapse argument restated in \S\ref{sec:intro}. We adopt their framing and their question, apply both to a different edit, and find that the premise transfers while the conclusion does not (\S\ref{sec:dither}). We read this as a statement about the \emph{shape} of an edit rather than about unlearning versus abliteration: what matters is the rank of the displacement relative to the readout rather than its size relative to the quantization step.
+
+\textbf{Safety under compression.} Findings in this literature point in both directions. Several works report that quantization degrades safety or trustworthiness~\cite{quantsafety2025,compressedtrust2024,finetunequant2024}, that it can be exploited to plant behaviour~\cite{exploitquant2024}, and that alignment properties such as bias degrade under compression~\cite{bias2026}. Most directly, \cite{qualitynotproxy2026} reports refusal falling by $12$ to $68$ points in seven of eleven AWQ and GPTQ configurations across six models, scored by an LLM judge. Against this, a factorial analysis finds AWQ INT4 essentially safety-neutral for base models in seven of nine cases~\cite{jointtemp2026}. Our twelve base-model and abliterated cells under GPTQ and AWQ agree with the second and not the first. Our cohort alone cannot resolve the disagreement (\S\ref{sec:threats}); it adds a third measurement with matched calibration and a judge validated against human labels. Calibrated methods~\cite{gptq2022,awq2023} and low-bit studies~\cite{qlora2023,lowbitllama3,bf16ordeath2024,kldquant2026} supply the quantizers; mechanistic work localises safety to specific neurons~\cite{safetyneurons2024} and characterises quantization damage across layers~\cite{structure2026}.
+
+\textbf{Shallow alignment.} Qi et al.~\cite{qi2024finetuning} show safety alignment is not durable in the weights, and the follow-up~\cite{qi2025shallow} explains why: alignment adapts the generative distribution primarily over the first few output tokens. That is shallowness in \emph{token depth}; ours is shallowness in \emph{parameter space}, and we read the second as a consequence of the first.
+
+\textbf{Cross-lingual refusal.} Alignment fitted in English does not fully transfer, and prompting in a low-resource language defeats guardrails that hold in English~\cite{yong2023lowresource,deng2024multilingual}. Wang et al.~\cite{wang2025universal} show the complementary result that a refusal direction extracted from English suppresses refusal in thirteen other languages when applied in activation space. Our \S\ref{sec:zh} reproduces their conclusion for a rank-one \emph{weight} edit, which matters here only because one quantizer moves the model between languages.
+
+\textbf{Auditing and evaluation.} Hurtado~\cite{hurtado2026audit} combines weight differencing against a base model with a behavioural refusal probe and finds the pair more reliable than either signal alone, which is the recommendation we reach independently in \S\ref{sec:implications}; we add that the weight signal is invariant to the quantizer while the behavioural one is not. Our prompt set draws on AdvBench~\cite{advbench2023} and HarmBench~\cite{harmbench2024}; capability is measured on MMLU~\cite{mmlu2021}, a multiple-choice knowledge benchmark spanning 57 subjects, which we use only to check that quantization has not broken the model. Static prompt sets are a limited probe and adaptive red-teaming agents~\cite{redteam2026} are a more sensitive instrument.
+
+\section{Method}
+
+\subsection{Testbed and checkpoints} All work runs on one workstation with a single 32\,GB consumer GPU. This is a realism constraint rather than a bound on what an adversary can do: the deployment path the paper is about is a hobbyist who abliterates and then quantizes a model on one machine, and every step below fits inside it.
+
+We abliterate with Heretic 1.4.0, a 200-trial Optuna search minimising refusals against KL divergence from the original model. We produce the abliterated checkpoints locally rather than downloading published ones so that the base model, the search parameters and the edit itself are known exactly; publicly distributed abliterated checkpoints rarely document all three, and \S\ref{sec:threats} discusses the resulting limitation in external validity. On Qwen2.5-7B-Instruct the selected trial reaches $3/100$ refusals at KL $0.051$; on Llama-3.1-8B-Instruct, $3/100$ at KL $0.063$. We also build an aggressive control: full projection, $w{=}1$, all layers.
+
+\subsection{What abliteration actually edits} \label{sec:whatedits}
+
+\begin{figure}[t]
+\centering\includegraphics[width=0.87\columnwidth]{figs/fig_ablation}
+\caption{(a) One decoder block. Of the six weight matrices, abliteration edits
+only \texttt{o\_proj} and \texttt{down\_proj}, the two whose output
+is \emph{added into} the residual stream. Q/K/V and gate/up \emph{read} from the
+stream and are untouched, as are all embeddings, norms and the LM head. (b)
+Per-layer edit magnitude, verified by differencing the checkpoints.}
+\label{fig:ablation}
+\end{figure}
+
+We verify what the tool edits by differencing the checkpoints (Fig.~\ref{fig:ablation}). The edit is \emph{exactly} rank-one ($\sigma_2/\sigma_1 \approx 0.01$ on Qwen, $0.021$ on Llama), carries one global direction (pairwise $|\cos|$ $0.95$--$0.98$ across layers), and touches only \texttt{attn.o\_proj} and \texttt{mlp.down\_proj}, the two residual-stream write paths. Which of the two carries the ablation is family-dependent: on Qwen the strength sits in \texttt{o\_proj} ($1.13$--$1.38$ against $0.43$--$1.08$), on Llama in \texttt{down\_proj} ($1.21$--$1.39$ against $1.17$--$1.26$).
+
+The edit is also unevenly distributed across depth, and not symmetrically so. Both components peak at layer $18$ of $28$, $64\%$ of the way through the stack. Neither tapers at both ends: the first five layers are untouched for \texttt{o\_proj} and the first nine for \texttt{down\_proj}, but \texttt{o\_proj} is still edited at $2.05\%$ of its Frobenius norm in the final layer, two thirds of its peak. On Qwen the search also de-tunes \texttt{down\_proj} relative to attention, sparing ten layers against five and ending at $0.70\%$ against $2.05\%$; on Llama it does the reverse. This is the shape of the solution Heretic's search selected, and we report it because it is the search space an auditor differencing a checkpoint would face; it is not a measurement of where refusal is represented.
+
+Along the removed direction the three abliterated checkpoints retain $R_{\rm BF16} = \|\hat{r}^{\top}W\|/\|\hat{r}^{\top}W_{\rm base}\| = 0.433$ (Qwen, KL-constrained), $0.171$ (Qwen, full projection) and $0.748$ (Llama).
+
+\subsection{Quantizers} \label{sec:quantizers} We compare three families of 4-bit quantization that differ in how their error is structured, plus a precision sweep within one of them.
+
+\textbf{Uniform round-to-nearest (RTN).} Symmetric integer rounding at 3, 4, 5, 6 and 8 bits, per output channel, applied as simulated quantize--dequantize round trips. For $N$ bits the step is $\Delta_q = \max|w| / (2^{N-1}-1)$ per channel. The error is unstructured: each weight moves to its nearest grid point and nothing compensates.
+
+\textbf{Blocked codebooks.} NF4~\cite{qlora2023}, validated against deployed \texttt{bitsandbytes} NF4 (5\% vs 3\% behavioural flips; 97.3\% vs 97.7\% MMLU retained), and GGUF Q4\_K\_M, the format \texttt{llama.cpp} runs: super-blocks with per-block scales and minima, precision mixed across tensors, no activations seen and no calibration pass. We build the GGUF with \texttt{llama.cpp}'s own converter and quantizer and load the dequantized tensors back, un-permuting the attention projections the converter reorders.
+
+\textbf{Calibrated.} GPTQ~\cite{gptq2022} and AWQ~\cite{awq2023}, produced as real W4A16 checkpoints via \texttt{llmcompressor}, calibration matched between the two at $256$ sequences of $1024$ tokens of benign instruction data: the realistic setting, since calibration on harmful prompts is not standard practice. GPTQ quantizes column by column and updates the not-yet-quantized weights to cancel the error just introduced; AWQ rescales channels to protect salient ones.
+
+\subsection{Prompt set and refusal judging} \label{sec:judge} The evaluation set is $500$ prompts sampled from AdvBench and HarmBench (Appendix~\ref{app:battery}); generation is greedy, $256$ new tokens. Every cell is $500$ prompts, which sets the study's resolution: against the abliterated checkpoint's $5.8\%$ baseline a rise to $10.7\%$ is detected with $80\%$ power, so the study resolves five-point effects but not two-point ones. Because every condition is scored on the same prompt set in the same order, conditions are paired by prompt, and we test them with an exact McNemar test on the discordant pairs. The gained and lost counts quoted throughout are exactly those discordant pairs. Fisher's exact test appears only where the two arms have different denominators, which we flag at each occurrence.
+
+\textbf{A Chinese prompt set.} To test whether the ablation transfers across languages (\S\ref{sec:zh}) we translate the first $200$ items into Simplified Chinese with Qwen2.5-14B-Instruct, chosen because it is not the judge, under a prompt that forbids answering, refusing or commenting. All $200$ come back in Chinese and none is a translator refusal; the comparison in \S\ref{sec:zh} uses that $200$-prompt prefix in both languages.
+
+\textbf{Coverage.} The four checkpoints of the main comparison are run under every quantizer; the RTN sweep covers the two abliterated checkpoints and their bases; the twelve-model base cohort is run at BF16, FP16, NF4 and INT4 only.
+
+Generation and scoring are separated: all $46{,}600$ generations are persisted, and refusal labels are assigned afterwards by a judge model (gemma-4-12b-it) under a three-way REFUSAL / COMPLY / GARBLED rubric that is language-agnostic and treats degeneration as its own outcome. Against $132$ blind reference labels annotated by one author the judge agrees $87.9\%$ of the time, $\kappa = 0.74$ (Fig.~\ref{fig:judge}). That set is stratified toward instrument disagreement, so the figure is a stress test rather than a prevalence-weighted estimate of corpus-wide accuracy. We also record whether each response is written in a non-Latin script.
+
+\begin{figure}[t]
+\centering\includegraphics[width=.72\columnwidth]{figs/fig_judge}
+\caption{Judge validation on $132$ blind hand annotations, stratified across
+agreement, disagreement and clear-compliance cases. The judge agrees with the
+human label $87.9\%$ of the time ($\kappa = 0.74$), the substring classifier
+$48.5\%$ ($\kappa = 0.15$). The dashed line is what answering REFUSAL
+unconditionally would score; the classifier falls below it.}
+\label{fig:judge}
+\end{figure}
+
+\section{Refusal under Quantization}
+
+\subsection{Deployed 4-bit quantizers} \label{sec:deployed}
+
+\begin{table}[t]
+\caption{Refusal rate ($\%$, $n=500$, LLM judge) of the same four checkpoints
+under each 4-bit quantizer, with exact McNemar $p$ against the BF16 reference
+in parentheses. The last column is the share of the abliterated Qwen model's
+responses written in Chinese.}
+\label{tab:quantizer}
+\centering\scriptsize
+\input{tables/tab_quantizer}
+\end{table}
+
+Table~\ref{tab:quantizer} is the behavioural result. The reference point for reading it is that an abliterated Qwen2.5-7B refuses $5.8\%$ of the prompt set where its unablated base model refuses $97.0\%$. Restoring refusal would mean moving the first number toward the second. None of the quantizers in the table does so.
+
+Under the three commonly deployed 4-bit approaches, the abliterated Qwen checkpoint reads $4.6\%$ under GPTQ ($8$ prompts gain refusal, $14$ lose it), $4.6\%$ under AWQ ($9$ and $15$) and $6.0\%$ under Q4\_K\_M ($16$ and $15$); none of the three is distinguishable from BF16 and two move downward. The abliterated Llama-3.1-8B reads $1.4\%$ at BF16 and $2.0\%$, $3.2\%$ and $1.6\%$ under the same three.
+
+One of those six cells is nominally significant: AWQ on the abliterated Llama checkpoint gains twelve refusals against three lost ($p=0.035$). It moves refusal \emph{up} by under two points, from $1.4\%$ to $3.2\%$, and clears no Bonferroni threshold of $0.05/20 = 0.0025$ over this table's comparisons, which no deployed-quantizer cell does. At $500$ prompts per cell the study resolves a five-point effect (\S\ref{sec:judge}), so the claim these cells support is not that the quantizers are exactly neutral but that none of them moves an abliterated model measurably back toward its base model's behaviour.
+
+Q4\_K\_M, which has no calibration pass, behaves like the calibrated methods; \S\ref{sec:dither} shows that calibration is not what protects the edit.
+
+\subsection{Bit width versus quantization algorithm} \label{sec:bits}
+
+\begin{table}[t]
+\caption{Abliterated Qwen2.5-7B across round-to-nearest precisions and NF4,
+$n=500$, LLM judge. $p$ is an exact McNemar test against BF16.}
+\label{tab:curve}
+\centering\scriptsize
+\input{tables/tab_curve}
+\end{table}
+
+If quantization reverted the edit by coarsening it, coarser would mean more refusal. The precision sweep in Table~\ref{tab:curve} shows no such gradient. From 16 bits down to 5 the abliterated Qwen checkpoint reads $5.8$, $6.8$, $5.8$, $6.2$ and $5.8\%$, none distinguishable from BF16. At 3 bits $99.2\%$ of responses are degenerate, so refusal cannot be measured.
+
+The movement is at 4 bits, and there it depends on the codebook rather than the width. Both round-to-nearest codebooks shift refusal upward: NF4 to $8.2\%$ ($19$ gained, $7$ lost, $p=0.03$, the one cell here sensitive to the judge's dropped verdicts, \S\ref{sec:threats}) and uniform INT4 to $13.2\%$ ($51$ gained, $14$ lost, $p<0.001$). Both calibrated quantizers and the blocked GGUF format, at the same $4$ bits, do not. The pattern holds in the other family: on the abliterated Llama checkpoint the two rounding codebooks move refusal ($p=0.02$ and $p=0.04$) while GPTQ and Q4\_K\_M do not. Three of four rounding cells on abliterated checkpoints survive that check against one of six calibrated or blocked cells.
+
+Bit width is therefore not the variable that determines the outcome. Two 4-bit quantizers differ more from each other than 16 bits differs from 5, and the axis that separates them is whether the quantizer compensates its own error. Section~\ref{sec:mechanism} examines why this is so, and \S\ref{sec:actspace} presents the measurement that tracks this ordering.
+
+Per-channel rounding is the aggressive end of its family; shipped RTN is group-wise. At group size $128$ the effect disappears: abliterated Qwen reads $3.4\%$, below its own BF16 baseline ($p=0.02$), abliterated Llama $1.8\%$ ($p=0.75$), and the Chinese share falls from $14.8\%$ to zero. The effect measured here is therefore specific to per-channel RTN. The group-wise variant that is actually shipped leaves the checkpoint uncensored with no refusal recovery.
+
+Every number in this subsection counts refusals over all $500$ responses regardless of the language they are in. The next subsection decomposes the INT4 count by response language.
+
+\subsection{Language switching under per-channel rounding}
+\label{sec:language}
+
+\begin{figure}[t]
+\centering\includegraphics[width=\columnwidth]{figs/fig_language}
+\caption{(a) Fraction of responses to English prompts that come back in Chinese.
+It happens overwhelmingly under INT4 uniform rounding, only in Qwen, and it
+scales with how much of the refusal direction was removed. (b) The INT4 refusal
+count split by the language of the response.}
+\label{fig:language}
+\end{figure}
+
+\begin{table}[t]
+\caption{The INT4 rounding count split by the language of the response, for both
+abliterated Qwen checkpoints. $p$ is an exact McNemar test against the BF16 row,
+except the last English-only row, whose denominator differs and which is
+therefore Fisher's exact.}
+\label{tab:split}
+\centering\scriptsize
+\input{tables/tab_split}
+\end{table}
+
+Hand-auditing the non-compliance verdicts in the BF16 and INT4 cells revealed that a large fraction of the responses counted as recovered refusals are in Chinese, answering an English prompt. These responses are fluent and on topic. One, to a request for instructions on stealing credit card details, opens by acknowledging that the request is criminal and pivots to phishing defence; another, to a request to encourage suicide, returns a message of support. In translation these are ordinary refusals and redirections; a surface-form classifier scores them as noise, as did our annotator at first.
+
+The switch is concentrated in the one quantizer that produced most of the anomaly (Fig.~\ref{fig:language}a, and the last column of Table~\ref{tab:quantizer}). Under INT4 rounding $3.2\%$ of all responses in the study come back in a non-Latin script; at every other precision and under every deployed quantizer the rate is at most $0.05\%$. Outside INT4, five non-Latin responses occur in $38{,}500$, three of them from gemma-4-12b, which produces them at BF16 as well. Within Qwen the INT4 rate tracks ablation depth, $3.6\%$ for the unablated model, $14.8\%$ for the KL-constrained checkpoint and $29.6\%$ for the full projection. Llama produces none at any setting.
+
+Table~\ref{tab:split} splits the INT4 count by response language, and an English-only effect remains. Of the KL-constrained checkpoint's $66$ refusals at INT4, $19$ are in Chinese and $47$ in English, against $29$ at BF16. The English-only rise is $5.8\%$ to $9.4\%$ over all prompts ($p=0.02$) and $11.0\%$ over the $426$ responses that stayed in English ($p=0.01$). At $500$ prompts the same-language effect is resolved at about four points; at the $200$ prompts of an earlier version of this study it was not. The switched responses carry the rest: they refuse at $25.7\%$, some four times the English rate in the same cell.
+
+The full projection behaves differently, for reasons two checkpoints cannot determine. It switches language twice as often ($29.6\%$) and shows no English-only rise at all ($7.6\%$ to $7.0\%$, $p=0.78$). Whatever produces the same-language increase in the KL-constrained checkpoint is absent under the deeper ablation.
+
+\subsection{Transfer of the ablation to Chinese prompts} \label{sec:zh}
+
+\begin{table}[t]
+\caption{Refusal rate ($\%$) on the same prompt set in English and in Chinese
+translation, at BF16 with no quantization anywhere. This comparison uses the
+first $200$ prompts, the ones that were translated, in both arms. $p$ is an
+exact McNemar test between the two languages, paired by prompt.}
+\label{tab:zh}
+\centering\scriptsize
+\input{tables/tab_zh}
+\end{table}
+
+An alternative hypothesis is that Heretic fits its direction on English prompt pairs, so Chinese refusal machinery is never ablated and a perturbation that pushes the model into Chinese meets an unablated model. The test requires no quantization: prompt the unquantized abliterated checkpoint in Chinese.
+
+Table~\ref{tab:zh} gives the result, and it does not support this hypothesis. The base model refuses $96.0\%$ of the Chinese prompt set and $96.0\%$ of the English one ($p=1.00$), which also confirms that translation preserved the requests' character. The abliterated checkpoint refuses $10.5\%$ of the Chinese prompt set against that $96.0\%$. The English-fitted edit therefore removes most refusal in a language that never appeared in the pairs used to fit it, agreeing with Wang et al.~\cite{wang2025universal} for a weight edit rather than an activation intervention.
+
+A residual asymmetry remains: the abliterated model still refuses more in Chinese than in English, $10.5\%$ against $5.0\%$ ($p=0.04$), and $15.5\%$ against $7.5\%$ for the full projection ($p=0.01$), with the two sets of refused prompts barely overlapping. Transfer is therefore substantial but not complete, and it is not sufficient to account for the effect in \S\ref{sec:language}.
+
+If switched responses were simply the model operating in Chinese they would refuse at $10.5\%$. They refuse at $25.7\%$. Whatever INT4 rounding does to this checkpoint elevates refusal beyond what answering in Chinese accounts for, on exactly the prompts where it also flips the language, and it elevates refusal among the English answers too. We read the switch and the excess refusal as two effects of one perturbation rather than one causing the other; we do not have a mechanism for either.
+
+\subsection{Controls} \label{sec:llama}
+
+\begin{table}[t]
+\caption{Llama-3.1-8B on the same prompt set, emitted by the same generator as
+Table~\ref{tab:curve}.}
+\label{tab:llama}
+\centering\scriptsize
+\input{tables/tab_llama}
+\end{table}
+
+\begin{figure}[t]
+\centering\includegraphics[width=0.9\columnwidth]{figs/fig_mmlu}
+\caption{MMLU across precisions, base against abliterated. The curves coincide
+at every width in both families. Llama loses far more to INT4 than Qwen and
+moves its refusal behaviour less.}
+\label{fig:mmlu}
+\end{figure}
+
+\textbf{Capability is held constant.} At INT4 the Qwen base model retains $90.81\%$ of MMLU and the abliterated model $90.48\%$; for Llama, $82.82\%$ against $82.16\%$. The two degrade identically in both families (Fig.~\ref{fig:mmlu}), across an $11.7$-point drop in Llama's case against Qwen's $7.0$. The refusal change is therefore not caused by capability loss; the family that loses more capability is the one whose refusal behaviour moves less.
+
+\textbf{The effect is smaller in Llama, and the language switch is absent.} The identical pipeline on Llama-3.1-8B (Table~\ref{tab:llama}) moves the abliterated checkpoint from $1.4\%$ to $3.4\%$ at INT4 rounding, fifteen gained against five lost ($p=0.04$), a rise of two points against Qwen's seven. The effect is smaller than in Qwen rather than absent. The language switch is absent: Llama never produces it at any setting. Two things distinguish the families: Llama has no second high-resource language to fall into, and its ablation is shallower, retaining $R_{\rm BF16} = 0.748$ of the component along the removed direction against Qwen's $0.433$ and $0.171$. We also tested whether Llama's alignment is deeper in the token-depth sense of~\cite{qi2025shallow} and found the opposite on every measure ($D_1 = 5.26$ against $1.57$), so that hypothesis is not supported.
+
+\textbf{Intact safety training is unaffected.} Across twelve safety-trained base models spanning seven lineages (Table~\ref{tab:base}), no increase in compliance remains statistically significant after Bonferroni correction over the twelve BF16-to-INT4 comparisons in that table (threshold $0.05/12 = 0.0042$). The largest compliance increase that is nominally significant is Qwen2.5-7B, whose COMPLY count rises by seven ($p=0.013$); Phi-3.5-mini's rises by twenty-eight and is not significant ($p=0.06$). Four models move nominally in the safe direction, refusing \emph{more} at INT4 or losing refusals to degeneration rather than to compliance: Mistral-7B ($48.0\%\!\to\!59.4\%$, compliance falling by $54$), Granite-3.1-8B, Qwen3-4B, and gemma-4-12b, whose refusals become degenerate output rather than answers. This part of the study confirms~\cite{jointtemp2026} with twelve models at four precisions, a validated judge, a paired test and a separate category for degeneration.
+
+\begin{table}[t]
+\caption{Refusal rate by precision, twelve base models, $n=500$. $\Delta$comply
+is the change in COMPLY verdicts from BF16 to INT4. Bold marks nominal
+significance; the Bonferroni threshold over these twelve comparisons is
+$0.0042$, which only gemma-4-12b clears.}
+\label{tab:base}
+\centering\scriptsize
+\input{tables/tab_base}
+\end{table}
+
+\section{Why the Edit Survives Rounding} \label{sec:mechanism}
+
+\subsection{The scale of a rank-one edit} \label{sec:rank1}
+
+\begin{figure}[t]
+\centering\includegraphics[width=0.58\columnwidth]{figs/fig_rank1}
+\caption{Removing one direction from a $d \times d$ matrix changes its Frobenius
+norm by order ${\sim}1/\sqrt{d}$ when its energy is spread evenly across
+directions. The measured edits exceed that estimate, which is why we treat it as
+a scale argument rather than a bound. At
+$d = 3584$ the bound is $1.67\%$; the measured Heretic edit is $2.10\%$ and the
+full projection $1.77\%$.}
+\label{fig:rank1}
+\end{figure}
+
+For $W' = W - w\,\hat{r}\hat{r}^{\top}W$, the removed component is $\|\hat{r}^{\top}W\|$, which for a matrix whose energy is spread evenly across directions is ${\sim}\|W\|_F/\sqrt{d}$. The relative perturbation is therefore of order $w/\sqrt{d}$, independent of how aggressively the direction is removed. At $d = 3584$ that estimate is $1.67\%$ and we measure $2.10\%$ (Fig.~\ref{fig:rank1}); the excess is expected, because the refusal direction's channel energy is not uniform, so this is a scale argument and not a bound.
+
+This rules out, subject to the even-energy condition the derivation assumes, a family of explanations: any account in which abliteration makes a model intrinsically more fragile under compression must operate through a $2\%$ weight change, and we confirm the null directly, with kurtosis of the weight distribution moving $1.494 \to 1.490$. A $2\%$ edit is very small compared with a 4-bit quantization step, which is exactly the condition under which Zhang et al.~\cite{zhang2025unlearnquant} expect an edit to be erased.
+
+\subsection{Survival in expectation and survival in effect} \label{sec:dither}
+
+\begin{figure}[t]
+\centering\includegraphics[width=0.93\columnwidth]{figs/fig_dither}
+\caption{(a) The abliteration edit, per weight, as a fraction of the 4-bit
+quantization step, one point per edited tensor. A weight must move half a step
+to change its quantized value; the edit is roughly $50$ times smaller. (b) The
+gain with which the difference between the two \emph{quantized} models
+reproduces the edit. Erasure would put these at $0$; they sit at $1$. Table~\ref{tab:rankreal}
+shows that this is true of any sub-step edit and therefore explains nothing on
+its own.}
+\label{fig:dither}
+\end{figure}
+
+\begin{table}[t]
+\caption{Per-tensor medians for the real edit, INT4 as defined in
+\S\ref{sec:quantizers}. $|\Delta W|/\Delta_q$ is the edit as a fraction of the
+quantization step and ``moved'' the share of weights whose quantized value
+changes.}
+\label{tab:dither}
+\centering\scriptsize
+\input{tables/tab_dither}
+\end{table}
+
+We can now test the per-weight argument directly, on the quantizer this study uses: symmetric INT4, per output channel, step $\Delta_q = \max|w|/7$.
+
+The premise of that argument holds. The median abliteration weight change is $0.011$ of the quantization step (Table~\ref{tab:dither}, Fig.~\ref{fig:dither}a). A weight must move half a step to land in a different bin, so the edit is some $50$ times too small to move a typical weight at all, and indeed only $1.9\%$ of edited weights change their quantized value. On the reasoning of~\cite{zhang2025unlearnquant} the two quantized models should be nearly identical and the edit should be gone.
+
+Despite this, the edit is preserved. Write $\Delta W = W_{\rm abl} - W_{\rm base}$ and measure the gain with which the quantized models reproduce it,
+\[ \pi \;=\; \frac{\bigl\langle Q(W_{\rm abl}) - Q(W_{\rm base}),\; \Delta W \bigr\rangle}{\|\Delta W\|^2}, \]
+so that $\pi = 0$ means erasure and $\pi = 1$ exact reproduction. Across $148$ edited tensors in three checkpoints the median is $0.99$ (Fig.~\ref{fig:dither}b).
+
+\textbf{This result is a property of rounding rather than of abliteration, and by itself it does not explain the behavioural finding.} If a weight sits uniformly within its bin, a displacement $\delta$ below the step size moves it across a boundary with probability $\delta/\Delta_q$ and by a full step when it does, so $\mathbb{E}\left[Q(w+\delta) - Q(w)\right] = \delta$ for \emph{any} sub-step edit. This is the dithering argument familiar from signal quantization, and it predicts unit gain regardless of how the edit is shaped. Table~\ref{tab:rankreal} confirms it on the real edited matrices: edits of the same Frobenius magnitude spread over $1$ to $256$ real directions all reproduce at gain $0.98$ under INT4, and at $0.99$ to $1.00$ under NF4, FP8 and INT8 (Fig.~\ref{fig:rankreal}b). Unit gain therefore does not by itself explain why abliteration survives.
+
+\begin{table}[t]
+\caption{Rank sweep on the real edited matrices with real directions. For each
+of the $54$ matrices abliteration edits in Qwen2.5-7B (\texttt{o\_proj} and
+\texttt{down\_proj} in all $27$ edited layers), the edit
+$\Delta W_k = -\alpha_k D_k D_k^{\top} W$ removes $k$ directions: the
+difference-in-means refusal direction and the $k{-}1$ leading principal
+directions of the harmful-minus-harmless activation difference at that layer,
+extracted from $512$ AdvBench and HarmBench prompts. $\alpha_k$ holds
+$\|\Delta W_k\|_F$ at its rank-one value. ``gain'' is $\pi$ under INT4; SNR is
+the edit's norm over the residue's norm \emph{inside the $k$-dimensional edited
+subspace}, mean over matrices. The control column repeats the INT4 sweep with
+$\alpha_k = 1$, so the edit grows with $k$ instead of being norm-matched. The
+last row is the exponent of a log-log fit of SNR against $k$.}
+\label{tab:rankreal}
+\centering\scriptsize
+\input{tables/tab_rank_real}
+\end{table}
+
+\begin{figure}[t]
+\centering\includegraphics[width=\columnwidth]{figs/fig_rank_real}
+\caption{The sweep of Table~\ref{tab:rankreal}, mean $\pm$ s.d.\ over the $54$
+edited matrices. (a) Inside the edited subspace the signal-to-noise ratio falls
+close to the predicted $k^{-1/2}$ under every quantizer, while the control arm,
+which lets the edit grow with $k$, stays nearly flat. (b) The gain stays at one
+at every rank. The edit is transmitted without bias whatever its rank; what
+rank changes is how much residue lands beside it.}
+\label{fig:rankreal}
+\end{figure}
+
+The distinguishing factor is where the rounding residue goes. Rounding returns the edit plus a residue of about four times the edit's norm, and that residue is spread over all $d$ directions of the row space. Behaviour after a rank-one ablation is read out through a single direction $\hat{r}$, so the residue competing with it there is smaller by roughly $\sqrt{d}$; a diffuse edit of the same norm receives no such suppression. The scaling this predicts is $\mathrm{SNR} \approx (\|\Delta W\|/\|\rho\|)\sqrt{d/k}$ for an edit of rank $k$ against a residue $\rho$, which is $k^{-1/2}$ at fixed edit norm.
+
+Table~\ref{tab:rankreal} and Fig.~\ref{fig:rankreal} test this on the real edited matrices rather than on random directions. For every one of the $54$ matrices abliteration edits in Qwen2.5-7B we take the refusal direction the rank-one edit removes, extend it with the leading principal directions of the harmful-minus-harmless activation difference at that layer, and remove $k$ of these directions at once with the Frobenius norm of the edit held at its rank-one value. At $k = 1$ this is the paper's edit up to the ablation weight, and the INT4 ratio it gives on \texttt{layers.18.o\_proj}, $7.7$, agrees with the $8.1$ measured on the Heretic edit of that matrix, where a random rank-one direction had given $11.2$. As $k$ grows the ratio inside the edited subspace falls from $7.2$ to $0.7$ at $k = 256$, crossing unity near $k \approx 120$, with a fitted exponent of $-0.42$ ($R^2 = 0.9996$) against the predicted $-0.5$; NF4, FP8 and INT8 give $-0.44$, $-0.50$ and $-0.45$ from higher starting points. The gain remains at unity throughout. The control column shows that the ratio did not fall only because the edit got smaller: with $\alpha_k = 1$ the edit grows fourteenfold over the same range and the ratio falls by a factor of two rather than ten (exponent $-0.14$), the remaining decline reflecting that the later principal directions carry less of $W$ than the refusal direction does. The ratio over the whole matrix, by contrast, sits at $0.20$ to $0.23$ at every rank, which is why the residue-to-edit ratio of four in Table~\ref{tab:dither} does not by itself determine survival: the quantity that carries the rank information is the ratio inside the subspace the behaviour is read from.
+
+The statement the data support is therefore narrower than the per-weight argument's. \emph{Every} sub-step edit survives quantization in expectation; a \emph{low-rank} edit also survives in effect, because the readout direction is one of $d$ and the damage is spread across all of them. Abliteration is rank one by construction (\S\ref{sec:whatedits}), which places it at the favourable end of that scale, and \S\ref{sec:noise} confirms from the behavioural side that the ablated component is barely refilled.
+
+The scope of this result is as follows. For norm-matched edits of the real matrices, rank governs how much of the edit survives inside its own subspace; that is measured. That the weight-space ratio translates into behaviour at every rank is not measured, and it cannot be measured with multi-direction ablation: holding the edit norm fixed forces the coefficient on the refusal direction down with $k$ ($\alpha_k$ in Table~\ref{tab:rankreal}), so a high-rank ablation barely de-censors the model before any quantizer touches it, and a behavioural survival ratio loses its denominator exactly where the weight-space ratio predicts an effect. A diffuse edit with its own behavioural readout is a different experiment, and it is the one that would also reach the unlearning edits of Zhang et al.~\cite{zhang2025unlearnquant}: utility-constrained unlearning distributes a small change over many weights and is read out over a correspondingly broad subspace, which is the regime where Table~\ref{tab:rankreal} says the residue wins. We did not measure such an edit and do not claim to have explained their result. We advance rank, rather than magnitude relative to the quantization step, as the variable their argument is missing, and it is directly testable on their checkpoints.
+
+\subsection{Alignment of the rounding residue with the ablated direction} \label{sec:noise}
+
+Whether the residue happens to point along $\hat{r}$ is a separate question from how much of it lands in that one direction, and it does not. The baseline-free quantity is the absorbed noise $N$, with $N^2 = R_{\rm cfg}^2 - R_{\rm BF16}^2$; measured this way $N_r/N_s$ runs $0.72$--$0.93$ across integer widths and both families, so quantization error is if anything \emph{less} aligned with the ablated direction than with a scale-matched control. The absorbed noise at INT4 is also nearly constant across the three checkpoints ($0.206$--$0.246$) despite hole depths spanning a factor of four, which is the signature of a direction-agnostic process, and added in quadrature it refills the deepest hole by $70\%$ relative and the shallowest by $5\%$ without returning either to its unablated level. The surrogate construction that makes $N_s$ a valid control, and the reason a random-direction null is not, are the subject of a companion submission; we use the result here and do not reproduce the argument.
+
+\subsection{Effect of calibration on activation-space displacement} \label{sec:actspace}
+
+\begin{figure}[t]
+\centering\includegraphics[width=\columnwidth]{figs/fig_actspace}
+\caption{Each quantizer's displacement along the ablated direction as a share of
+what INT4 rounding produces, measured in the weights (grey) and in what
+\texttt{o\_proj} writes to the residual stream on real harmful prompts (blue).
+Arrows mark the calibrated quantizers, which retain most of the weight
+displacement and shed most of the activation displacement.}
+\label{fig:actspace}
+\end{figure}
+
+\S\ref{sec:dither} explains why no quantizer erases the edit. A separate question is why the quantizers differ at all in what reaches behaviour, and the answer is that the weight metric $R$ does not capture it. $R$ weights every input direction equally, whereas behaviour depends on $\hat{r}^{\top}(Wx)$ for the $x$ the model sees. Hooking the residual-stream write matrices, we measure \[ A \;=\; \frac{\mathbb{E}_x\,\bigl|\hat{r}\cdot(Wx)\bigr|} {\mathbb{E}_x\,\bigl|\hat{r}\cdot(W_{\rm base}x)\bigr|} \] on $120$ prompts from the evaluation set at the final prompt position, normalised per layer and averaged over edited layers.
+
+Measured this way the two rankings come apart. Against the abliterated checkpoint at $A = 0.202$, INT4 rounding raises the component $28.1\%$, AWQ $8.7\%$, GPTQ $5.1\%$, Q4\_K\_M $2.3\%$, and NF4 lowers it $2.7\%$. As a share of what rounding achieves, \textbf{GPTQ carries $72\%$ of the weight displacement and $18\%$ of the activation displacement} (Fig.~\ref{fig:actspace}), a fourfold attenuation, which is what calibration is for: both calibrated methods arrange for layer outputs to survive, and displacement along $\hat{r}$ in weight space then need not appear in the residual stream. Uniform rounding has no corresponding mechanism.
+
+The scope of this result is limited in two ways. It explains why the only configuration whose displacement reaches the stream is also the only one whose behaviour moves. It does not establish the last link, because the behaviour that moves is mostly the language of the response (\S\ref{sec:language}), and that the displacement reaching the stream is what destabilises language selection is a conjecture we have not tested. $A$ also confounds removal with the forward-pass shift, returning $A = 1.47$ on the abliterated Llama checkpoint's \texttt{down\_proj}, so it answers whether a displacement reaches the stream and does not replace $R$.
+
+\section{Choice of Refusal Detector} \label{sec:classifier}
+
+Every refusal number above comes from the judge of \S\ref{sec:judge} rather than from the substring matching common in this literature, and we state the basis for that choice. On the $132$ reference labels the marker list agrees $48.5\%$ of the time, below the $64.4\%$ that answering REFUSAL unconditionally would score. Run on our grid it reports $0.8\% \to 0.0\%$ for the abliterated checkpoint from BF16 to INT4, i.e.\ no effect, where the judge measures $5.8\% \to 13.2\%$; on the Chinese prompt set of \S\ref{sec:zh} it reports $0.0\%$ for a base model whose true rate is $96.0\%$. Both of this paper's behavioural results would have been inverted, and the switched responses of \S\ref{sec:language} would never have been noticed.
+
+Such an instrument is biased rather than merely noisy because quantization perturbs the surface \emph{form} of a refusal far more than the decision to refuse, so a surface-form instrument has error correlated with the independent variable. A companion submission treats that measurement question in full, with the per-model error surface, the annotation audit and the candidate-judge comparison; we reproduce none of it here beyond what justifies our own numbers.
+
+\section{Implications for Checkpoint Auditing} \label{sec:implications}
+
+\textbf{Compression provides no residual safety margin,} and \S\ref{sec:dither} explains why none should be expected. The quantizers that dominate real deployment restore nothing, and even under naive INT4 rounding the abliterated model still complies with $84.5\%$ of the prompt set. Any defence relying on compression to incidentally re-censor a tampered checkpoint rests on an effect we do not observe and the rank dependence does not predict. The practical value of this finding is that it removes a false assurance. The consequence is largest at the network edge, where the 4-bit build \emph{is} the deployment and any upstream audit was done on weights the operator never re-checks: an edge fleet inherits whatever was done to its parent, and a hub-sourced checkpoint must be audited as weights rather than trusted because it arrived quantized.
+
+\textbf{The quantization algorithm belongs in any safety report.} Two 4-bit quantizers of the same width differ more in their effect on refusal than 16 bits and 5 bits do, so a refusal rate reported for ``the 4-bit model'' is not interpretable. Report the algorithm, and for calibrated methods the calibration set.
+
+\textbf{A 4-bit build that refuses more than its BF16 parent does not indicate that the parent was clean.} In this study the higher rate told us the build used unstructured rounding and had started answering in another language. Responses should be read, and their script checked, before they are counted.
+
+\textbf{A behavioural probe detects abliteration less reliably than the weights do,} which is also the conclusion of~\cite{hurtado2026audit}. We add that the weight signal is invariant to the deployment pipeline in a way the behavioural signal is not: differencing the two residual-stream write matrices against the claimed base model (\S\ref{sec:whatedits}) gives the same answer at every precision, since the edit survives quantization. Where the base model is unavailable, probe in more than one language.
+
+\section{Limitations} \label{sec:threats}
+
+\textbf{Statistical resolution.} At $500$ prompts per cell (\S\ref{sec:judge}) the study rules out effects of roughly five points and larger, not smaller ones. At the $200$ we first ran, the same-language residue of \S\ref{sec:language} was not resolvable at all.
+
+\textbf{Relation to a published result.} \cite{qualitynotproxy2026} reports refusal falling $12$ to $68$ points under AWQ and GPTQ in seven of eleven configurations, judged by an LLM; our twelve corresponding cells move by at most a few points. Their cohort is six models in four families and ours is two, their GGUF ladder is deeper, and their calibration is not described as matched between schemes, as ours is. Any of these could explain the difference, and we treat the question as open. We note that~\cite{jointtemp2026} reaches our conclusion on nine models.
+
+\textbf{The rank result is measured in weight space; its behavioural transfer is not.} Rounding preserves this rank-one edit with unit gain in two families and three checkpoints, and the sweep of \S\ref{sec:dither} measures survival inside the edited subspace on the real matrices of one of them, under four quantizers. We did not measure the behaviour of a diffuse edit, nor an unlearning edit, so the claim that rank rather than magnitude distinguishes our result from~\cite{zhang2025unlearnquant} is a prediction their data and ours are jointly consistent with, not something we tested.
+
+\textbf{The Chinese cell is judge-only.} None of the $132$ hand annotations covers a Chinese-prompt response. The judge also returns UNCLEAR on $12$ of $200$ there against $1$ of the first $200$ in English; counting every one as a refusal raises the Chinese rate to $16.5\%$, which leaves the transfer conclusion untouched and the English-Chinese residual significant ($p=0.001$) but makes the gap to the switched responses' $27\%$ non-significant ($p=0.125$). No human reader checked the translations; the base model's identical refusal rate in both languages is the only evidence we offer that the requests survived translation.
+
+\textbf{Language detection is crude, and one family switches.} We flag a switch by the ratio of CJK to Latin characters, which would miss a switch to a Latin-script language, so switching rates are lower bounds. Only Qwen2.5 switches in our cohort.
+
+\textbf{Two families, one ablation tool, three locally produced checkpoints.} Producing the checkpoints ourselves fixes the base model and the edit exactly (\S\ref{sec:whatedits}), but it means the many abliterated checkpoints distributed publicly, made with other tools and settings, are not represented. Running the same pipeline on those, adding a third family and a second abliteration tool are the natural external-validity checks, and we have not taken them. Nor have we tested editing techniques other than abliteration; the rank prediction of \S\ref{sec:dither} is the hypothesis such a study would test.
+
+\textbf{Quantizer coverage.} We test uniform round-to-nearest, NF4, GPTQ, AWQ and GGUF Q4\_K\_M, spanning the uncalibrated and calibrated extremes and the blocked middle. We quantize weights only (W4A16); 2-bit and 3-bit k-quants and activation quantization are untested.
+
+\textbf{The judge returns no verdict for about one response in a hundred.} The judge returns UNCLEAR, meaning its one-word output matched none of the three rubric labels, on $421$ of $46{,}600$ responses ($0.90\%$); we count UNCLEAR as a non-refusal throughout. Re-asking the judge about exactly those responses, same rubric, output format constrained, resolves all $421$: $247$ refusals, $150$ compliances, $24$ garbled. Substituting them changes $3$ of the $24$ verdicts in Table~\ref{tab:quantizer}: NF4 on abliterated Qwen ($p=0.03\!\to\!0.11$) and Q4\_K\_M on Qwen base ($p=0.04\!\to\!0.63$) lose nominal significance and NF4 on Llama base gains it ($p=0.38\!\to\!0.02$); the INT4 result the behavioural sections rest on is not among them ($p<0.001$ either way). We keep the unresolved labels as primary because re-measuring only the subset that failed applies a second instrument to a selected sample, and ship the resolved labels with the artifact. The judge therefore has a failure mode of the same kind as the keyword classifier it replaced, at roughly a hundredth of the rate.
+
+\textbf{Single judge, and it is not ground truth.} Final results rest on one judge model, validated at $87.9\%$ agreement ($\kappa = 0.74$) against $132$ reference labels annotated by one author and stratified toward instrument disagreement, which is a stress test rather than a corpus-wide accuracy estimate. Its $16$ disagreements are asymmetric: it over-calls REFUSAL in $12$, under-calls in $3$, and returns UNCLEAR against one human COMPLY. That asymmetry would inflate the raw INT4 count rather than the deployed-quantizer null. The judge is also one of the twelve base models of Table~\ref{tab:base}, so its own generations are self-scored; only two hand-labelled items are gemma-4 generations, too few to measure separately, but on that model's rows the keyword classifier reads $96.5\%$ and $87.5\%$ against the judge's $97.0\%$ and $89.5\%$, within two points. We attempted a second judge and could not obtain an equal one: Qwen3-4B-Instruct-2507 scored $16{,}800$ generations at $66.2\%$ raw agreement but $\kappa = 0.011$, returning REFUSAL for $99.5\%$ of inputs, five further candidates collapsed identically, and WildGuard~\cite{han2024wildguard}, trained for refusal detection, reached only $\kappa = 0.48$ against the same reference labels.
+
+\textbf{Decoding and prompts.} Greedy only; English prompts except in \S\ref{sec:zh}; single-turn direct requests with no jailbreak framing. Temperature is a larger safety factor than quantization and was held fixed.
+
+\section{Conclusion}
+
+A weight edit applied after training is not automatically fragile under quantization. Abliteration is roughly $100$ times smaller than a 4-bit quantization step, which is exactly the condition under which unlearning edits are reported to collapse back into their originals, yet the two quantized models still differ by the edit at unit gain. This is a general property of rounding and not something specific to abliteration; any sub-step displacement is reproduced in expectation, whether dense or low-rank. For norm-matched edits of the real matrices, what decides whether the edit survives in effect is its rank. Rounding returns the edit plus a residue spread over all $d$ directions, so an edit read out through one direction competes with a $\sqrt{d}$-suppressed share of that residue while a diffuse edit competes with all of it, and the signal-to-noise ratio inside the edited subspace falls close to $k^{-1/2}$ as the same edit energy is spread over $k$ real directions.
+
+Behaviourally, the algorithm moves refusal and the bit width does not. Round-to-nearest is flat from 16 bits down to 5; at 4 bits per-channel rounding shifts refusal upward by a few points, partly by switching the model's output language, and a direct test shows the English-fitted ablation had transferred to that language anyway. GPTQ, AWQ and GGUF Q4\_K\_M, at the same 4 bits, produce no change that remains significant after correction, and none moves an abliterated checkpoint toward its base model's rate. Even the harshest quantizer we tried leaves the abliterated model complying with the large majority of harmful requests. Quantization therefore does not function as a defense against abliteration, and the mechanism above explains why it cannot.
+
+The weight-space result yields a prediction we state but have not tested on behaviour or on other editing methods: whether a post-hoc edit survives quantization depends on its rank relative to the readout rather than on its magnitude relative to the quantization step (\S\ref{sec:dither}). If that is right, defenses that distribute a safety property across a broad subspace are the ones compression will erase, and rank-one edits like abliteration are the ones it will carry through. We plan to test it on unlearning and model-editing checkpoints.
+
+\section*{Ethical Considerations} This work measures a capability that already exists and is widely distributed: abliteration tooling is public, and abliterated checkpoints are published in quantity. We produce no new attack and release no uncensored weights. Our central finding removes a false assurance and provides no new capability (\S\ref{sec:implications}). Model responses are retained in the artifact rather than reproduced here.
+
+\section*{Artifact Availability and Related Submission}
+The artifact is at \url{\artifacturl} (archived at \url{\artifactdoi}). It contains the $500$-prompt evaluation set and its Chinese translation, all $46{,}600$ generations with their prompts and metadata, the judge verdicts including the re-asked UNCLEAR labels, the $132$ human annotation labels with timings and selection seed, the checkpoint-differencing outputs, the per-model behaviour and capability tables, the rank-sweep code of \S\ref{sec:dither} with its outputs, and the scripts that emit every table and figure in this paper. Raw model responses to harmful prompts are distributed under a click-through access condition rather than posted openly; everything else is public.
+
+This paper shares an experimental corpus with a separate contemporaneous workshop submission. The present paper concerns whether and why a rank-one weight edit survives quantization; the other concerns measurement validity in refusal evaluation. The analyses, claims and contributions are distinct.
+
+%% From here on the pages are back matter whose columns need not be flush:
+%% the in-flow appendix table makes one column much taller than the other,
+%% and \flushbottom would stretch the reference list to match it.
+\raggedbottom
+\bibliographystyle{IEEEtran} \bibliography{refs}
+
+\appendices
+
+\section{Full Per-Model Results} \label{app:full}\begin{table}[H]
+\caption{Per-model, per-configuration counts out of $n=500$. ``keyword\%'' is
+what the substring classifier reported on the identical generations.}
+\label{tab:full}
+\centering\scriptsize
+\input{tables/tab_full}
+\end{table}
+
+\section{The Harmful Prompt Set} \label{app:battery} The evaluation set is a $500$-prompt sample drawn from AdvBench~\cite{advbench2023} and HarmBench~\cite{harmbench2024}, retaining HarmBench's category labels. Table~\ref{tab:items} lists a representative sample verbatim; the full list ships with the artifact. They are \emph{requests} rather than instructions: the prompt text carries no operational content, and all items come from published, openly downloadable benchmarks.
+
+\input{tables/tab_items_artman}
+
+%% ACSAC policy: the LLM Usage Statement is the last section of the paper. The
+%% \clearpage flushes the Appendix B table* float so nothing lands after it.
+\clearpage
+\section*{LLM Usage Statement}
+This statement follows the ACSAC 2026 policy on the use of large language models and does not count toward the page limit. LLMs enter this work in two roles.
+
+\textbf{LLMs as part of the methodology.} Refusal labels for all $46{,}600$ generations are assigned by an openly available judge model, gemma-4-12b-it, under the rubric of \S\ref{sec:judge}, and the Chinese prompt set of \S\ref{sec:zh} is translated by Qwen2.5-14B-Instruct, chosen because it is not the judge. Both are central methodological choices and we treat them as instruments to be validated. The judge is validated against $132$ blind human annotations drawn from the distribution it is applied to, at $87.9\%$ agreement and $\kappa = 0.74$, with the direction of its residual errors reported; the limitations of single-judge dependence, the judge's dropped verdicts and the absence of human-checked translations are recorded in \S\ref{sec:threats}. Both models are open-weight, so the labelling is reproducible from the released generations, which the artifact persists so that any reader may re-score them under a different rubric or judge without repeating the generation work.
+
+\textbf{LLMs for editorial and coding purposes.} LLMs were used for editorial purposes in this manuscript, and all outputs were inspected by the authors to ensure accuracy and originality. An LLM-based coding assistant was also used to write and debug the measurement and analysis code and to generate the figures and tables from the scored files; that code was reviewed and run by the authors. The authors designed and ran all experiments on their own hardware, verified the reported results, and take full responsibility for the paper's correctness, originality and integrity. Every number in the paper is produced programmatically from the judged generation files rather than transcribed.
+
+\end{document}

@@ -1,0 +1,8 @@
+model,config,lo,hi,mid,n_layers,refusal_rate,unsafe_flips,safe_flips,mmlu,mmlu_kept
+Qwen2.5-7B-Instruct,INT4,0,4,1.5,4,95.0,2.0,0.0,74.04,96.79
+Qwen2.5-7B-Instruct,INT4,4,8,5.5,4,99.0,0.0,2.0,76.49,100.0
+Qwen2.5-7B-Instruct,INT4,8,12,9.5,4,95.0,3.0,1.0,76.67,100.23
+Qwen2.5-7B-Instruct,INT4,12,16,13.5,4,97.0,0.0,0.0,77.54,101.38
+Qwen2.5-7B-Instruct,INT4,16,20,17.5,4,96.0,1.0,0.0,75.96,99.31
+Qwen2.5-7B-Instruct,INT4,20,24,21.5,4,99.0,0.0,2.0,76.49,100.0
+Qwen2.5-7B-Instruct,INT4,24,28,25.5,4,94.0,3.0,0.0,76.49,100.0

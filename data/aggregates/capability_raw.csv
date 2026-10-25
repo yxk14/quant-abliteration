@@ -1,0 +1,15 @@
+model,short,variant,fmt,width,config,task,metric,value
+Llama-3.1-8B-abl,Llama31a,abliterated,BF16,16,BF16,mmlu,acc,0.68395
+Llama-3.1-8B-abl,Llama31a,abliterated,BF16,16,BF16,wikitext,ppl,8.2496
+Llama-3.1-8B-abl,Llama31a,abliterated,INT,16,INT16,mmlu,acc,0.68295
+Llama-3.1-8B-abl,Llama31a,abliterated,INT,16,INT16,wikitext,ppl,8.252
+Llama-3.1-8B-abl,Llama31a,abliterated,INT,8,INT8,mmlu,acc,0.68153
+Llama-3.1-8B-abl,Llama31a,abliterated,INT,8,INT8,wikitext,ppl,8.2503
+Llama-3.1-8B-abl,Llama31a,abliterated,INT,6,INT6,mmlu,acc,0.67633
+Llama-3.1-8B-abl,Llama31a,abliterated,INT,6,INT6,wikitext,ppl,8.3424
+Llama-3.1-8B-abl,Llama31a,abliterated,INT,5,INT5,mmlu,acc,0.66009
+Llama-3.1-8B-abl,Llama31a,abliterated,INT,5,INT5,wikitext,ppl,8.7598
+Llama-3.1-8B-abl,Llama31a,abliterated,INT,4,INT4,mmlu,acc,0.56196
+Llama-3.1-8B-abl,Llama31a,abliterated,INT,4,INT4,wikitext,ppl,13.4364
+Llama-3.1-8B-abl,Llama31a,abliterated,INT,3,INT3,mmlu,acc,0.25787
+Llama-3.1-8B-abl,Llama31a,abliterated,INT,3,INT3,wikitext,ppl,110886.5

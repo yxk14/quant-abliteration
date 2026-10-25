@@ -1,0 +1,15 @@
+model,short,variant,fmt,width,config,task,metric,value
+Granite8B,Granite8B,base,BF16,16,BF16,mmlu,acc,0.66667
+Granite8B,Granite8B,base,BF16,16,BF16,wikitext,ppl,6.1993
+Granite8B,Granite8B,base,FP,16,FP16,mmlu,acc,0.66842
+Granite8B,Granite8B,base,FP,16,FP16,wikitext,ppl,6.2016
+Granite8B,Granite8B,base,FP,8,FP8,mmlu,acc,0.6614
+Granite8B,Granite8B,base,FP,8,FP8,wikitext,ppl,6.2659
+Granite8B,Granite8B,base,FP,4,FP4,mmlu,acc,0.66579
+Granite8B,Granite8B,base,FP,4,FP4,wikitext,ppl,6.549
+Granite8B,Granite8B,base,INT,16,INT16,mmlu,acc,0.66754
+Granite8B,Granite8B,base,INT,16,INT16,wikitext,ppl,6.1994
+Granite8B,Granite8B,base,INT,8,INT8,mmlu,acc,0.66447
+Granite8B,Granite8B,base,INT,8,INT8,wikitext,ppl,6.2045
+Granite8B,Granite8B,base,INT,4,INT4,mmlu,acc,0.57939
+Granite8B,Granite8B,base,INT,4,INT4,wikitext,ppl,8.8494

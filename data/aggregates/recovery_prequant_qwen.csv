@@ -1,0 +1,4 @@
+config,recovery_along_r,noise_along_r
+BF16,0.43308,0.0
+GPTQ4,0.45778,0.14834
+AWQ4,0.44685,0.11009

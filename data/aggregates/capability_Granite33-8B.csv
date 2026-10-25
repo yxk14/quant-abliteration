@@ -1,0 +1,11 @@
+model,short,variant,fmt,width,config,task,metric,value
+Granite33-8B,Granite33-8B,base,BF16,16,BF16,mmlu,acc,0.64737
+Granite33-8B,Granite33-8B,base,BF16,16,BF16,wikitext,ppl,7.3476
+Granite33-8B,Granite33-8B,base,FP,16,FP16,mmlu,acc,0.64912
+Granite33-8B,Granite33-8B,base,FP,16,FP16,wikitext,ppl,7.3485
+Granite33-8B,Granite33-8B,base,FP,4,FP4,mmlu,acc,0.64825
+Granite33-8B,Granite33-8B,base,FP,4,FP4,wikitext,ppl,7.6979
+Granite33-8B,Granite33-8B,base,INT,16,INT16,mmlu,acc,0.64649
+Granite33-8B,Granite33-8B,base,INT,16,INT16,wikitext,ppl,7.3432
+Granite33-8B,Granite33-8B,base,INT,4,INT4,mmlu,acc,0.57193
+Granite33-8B,Granite33-8B,base,INT,4,INT4,wikitext,ppl,10.7463

@@ -1,0 +1,15 @@
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}l r r r r@{}}
+\toprule
+& \multicolumn{2}{c}{KL-constrained} & \multicolumn{2}{c}{full projection} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+& count (\%) & $p$ & count (\%) & $p$ \\
+\midrule
+BF16 refusals, all & 29/500 (5.8) & --- & 38/500 (7.6) & --- \\
+INT4 refusals, all & 66/500 (13.2) & 0.0000 & 74/500 (14.8) & 0.0000 \\
+INT4 responses in Chinese & 74/500 (14.8) &  & 148/500 (29.6) &  \\
+English refusals / all prompts & 47/500 (9.4) & 0.02 & 35/500 (7.0) & 0.78 \\
+English refusals / English resp. & 47/426 (11.0) & 0.01 & 35/352 (9.9) & 0.26 \\
+Chinese refusals / Chinese resp. & 19/74 (25.7) &  & 39/148 (26.4) &  \\
+\bottomrule
+\end{tabular}

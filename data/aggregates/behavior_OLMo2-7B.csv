@@ -1,0 +1,8 @@
+model,short,variant,fmt,width,config,n,refusal_rate,completion_rate,adj_refusal_rate,dfr
+OLMo2-7B,OLMo2-7B,base,BF16,16,BF16,100,100.0,76.0,100.0,0.0
+OLMo2-7B,OLMo2-7B,base,FP,16,FP16,100,100.0,75.0,100.0,0.0
+OLMo2-7B,OLMo2-7B,base,FP,8,FP8,100,100.0,76.0,100.0,0.0
+OLMo2-7B,OLMo2-7B,base,FP,4,FP4,100,100.0,59.0,100.0,0.0
+OLMo2-7B,OLMo2-7B,base,INT,16,INT16,100,100.0,77.0,100.0,0.0
+OLMo2-7B,OLMo2-7B,base,INT,8,INT8,100,100.0,75.0,100.0,0.0
+OLMo2-7B,OLMo2-7B,base,INT,4,INT4,100,100.0,56.0,100.0,0.0

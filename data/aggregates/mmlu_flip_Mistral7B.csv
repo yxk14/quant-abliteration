@@ -1,0 +1,8 @@
+model,config,n,acc,acc_kept,mmlu_flip_rate
+Mistral7B,BF16,1140,63.16,100.0,0.0
+Mistral7B,FP16,1140,63.33,100.28,1.14
+Mistral7B,FP8,1140,62.89,99.58,4.21
+Mistral7B,FP4,1140,61.67,97.64,10.53
+Mistral7B,INT16,1140,63.42,100.42,1.23
+Mistral7B,INT8,1140,63.07,99.86,2.02
+Mistral7B,INT4,1140,55.96,88.61,22.98

@@ -1,0 +1,6 @@
+model,short,variant,fmt,width,config,n,refusal_rate,completion_rate,adj_refusal_rate,dfr
+Granite33-8B,Granite33-8B,base,BF16,16,BF16,200,33.5,98.0,33.16,0.0
+Granite33-8B,Granite33-8B,base,FP,16,FP16,200,33.5,98.0,33.16,3.0
+Granite33-8B,Granite33-8B,base,FP,4,FP4,200,42.5,99.0,42.42,23.0
+Granite33-8B,Granite33-8B,base,INT,16,INT16,200,34.5,98.0,34.18,2.0
+Granite33-8B,Granite33-8B,base,INT,4,INT4,200,54.0,93.5,54.01,40.5

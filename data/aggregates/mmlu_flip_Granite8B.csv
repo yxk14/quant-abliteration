@@ -1,0 +1,8 @@
+model,config,n,acc,acc_kept,mmlu_flip_rate
+Granite8B,BF16,1140,66.58,100.0,0.0
+Granite8B,FP16,1140,66.4,99.74,0.96
+Granite8B,FP8,1140,65.7,98.68,3.95
+Granite8B,FP4,1140,67.46,101.32,11.23
+Granite8B,INT16,1140,66.4,99.74,1.32
+Granite8B,INT8,1140,66.14,99.34,2.46
+Granite8B,INT4,1140,58.6,88.01,26.93

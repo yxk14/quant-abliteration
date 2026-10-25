@@ -1,0 +1,13 @@
+model,short,variant,fmt,width,config,rho_refusal,rho_null_mean,rho_null_p95,p_value
+Qwen2.5-7B-Instruct,Q7B,base,FP,16,FP16,1.0008,1.0,1.0616,0.493893
+Qwen2.5-7B-Instruct,Q7B,base,FP,8,FP8,1.0945,0.9999,1.0439,0.152
+Qwen2.5-7B-Instruct,Q7B,base,FP,4,FP4,1.1439,0.9998,1.0436,0.077714
+Qwen2.5-7B-Instruct,Q7B,base,INT,16,INT16,1.1104,1.0002,1.0507,0.251786
+Qwen2.5-7B-Instruct,Q7B,base,INT,8,INT8,1.7242,1.0004,1.0711,0.024393
+Qwen2.5-7B-Instruct,Q7B,base,INT,4,INT4,1.6758,1.0006,1.0672,0.012036
+Qwen2.5-7B-Instruct,Q7B,abliterated,FP,16,FP16,1.0375,0.9999,1.0613,0.373786
+Qwen2.5-7B-Instruct,Q7B,abliterated,FP,8,FP8,1.0935,1.0,1.0442,0.147071
+Qwen2.5-7B-Instruct,Q7B,abliterated,FP,4,FP4,1.1374,1.0,1.044,0.11
+Qwen2.5-7B-Instruct,Q7B,abliterated,INT,16,INT16,1.1106,1.0003,1.0508,0.286286
+Qwen2.5-7B-Instruct,Q7B,abliterated,INT,8,INT8,1.7036,1.0006,1.0719,0.026179
+Qwen2.5-7B-Instruct,Q7B,abliterated,INT,4,INT4,1.6649,1.0004,1.0671,0.03275

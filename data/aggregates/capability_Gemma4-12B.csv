@@ -1,0 +1,11 @@
+model,short,variant,fmt,width,config,task,metric,value
+Gemma4-12B,Gemma4-12B,base,BF16,16,BF16,mmlu,acc,0.45702
+Gemma4-12B,Gemma4-12B,base,BF16,16,BF16,wikitext,ppl,2918.4443
+Gemma4-12B,Gemma4-12B,base,FP,16,FP16,mmlu,acc,0.43947
+Gemma4-12B,Gemma4-12B,base,FP,16,FP16,wikitext,ppl,2892.665
+Gemma4-12B,Gemma4-12B,base,FP,4,FP4,mmlu,acc,0.36754
+Gemma4-12B,Gemma4-12B,base,FP,4,FP4,wikitext,ppl,4413.1982
+Gemma4-12B,Gemma4-12B,base,INT,16,INT16,mmlu,acc,0.45877
+Gemma4-12B,Gemma4-12B,base,INT,16,INT16,wikitext,ppl,2802.293
+Gemma4-12B,Gemma4-12B,base,INT,4,INT4,mmlu,acc,0.27544
+Gemma4-12B,Gemma4-12B,base,INT,4,INT4,wikitext,ppl,33522656.0

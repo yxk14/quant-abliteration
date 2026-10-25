@@ -1,0 +1,11 @@
+model,short,variant,fmt,width,config,task,metric,value
+Ministral-8B,Ministral-8B,base,BF16,16,BF16,mmlu,acc,0.66667
+Ministral-8B,Ministral-8B,base,BF16,16,BF16,wikitext,ppl,8.1286
+Ministral-8B,Ministral-8B,base,FP,16,FP16,mmlu,acc,0.66579
+Ministral-8B,Ministral-8B,base,FP,16,FP16,wikitext,ppl,8.1282
+Ministral-8B,Ministral-8B,base,FP,4,FP4,mmlu,acc,0.65526
+Ministral-8B,Ministral-8B,base,FP,4,FP4,wikitext,ppl,8.4715
+Ministral-8B,Ministral-8B,base,INT,16,INT16,mmlu,acc,0.66667
+Ministral-8B,Ministral-8B,base,INT,16,INT16,wikitext,ppl,8.1284
+Ministral-8B,Ministral-8B,base,INT,4,INT4,mmlu,acc,0.61316
+Ministral-8B,Ministral-8B,base,INT,4,INT4,wikitext,ppl,9.6591

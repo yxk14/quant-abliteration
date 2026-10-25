@@ -1,0 +1,10 @@
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+checkpoint & tensors & $|\Delta W|/\Delta_q$ & moved\% & proj. & $\cos$ \\
+\midrule
+Qwen2.5-7B, KL-constrained & 41 & 0.011 & 1.9 & 0.998 & 0.22 \\
+Qwen2.5-7B, full projection & 56 & 0.008 & 1.5 & 0.987 & 0.20 \\
+Llama-3.1-8B, abliterated & 51 & 0.012 & 2.1 & 0.992 & 0.23 \\
+\bottomrule
+\end{tabular}

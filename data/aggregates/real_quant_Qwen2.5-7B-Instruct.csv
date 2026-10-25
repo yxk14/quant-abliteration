@@ -1,0 +1,4 @@
+model,method,n,refusal_rate,completion_rate,dfr,unsafe_flips,safe_flips,mmlu,mmlu_kept
+Qwen2.5-7B-Instruct,bf16,100,99.0,86.0,0.0,0.0,0.0,76.49,100.0
+Qwen2.5-7B-Instruct,bnb-nf4,100,94.0,61.0,5.0,5.0,0.0,74.39,97.25
+Qwen2.5-7B-Instruct,bnb-int8,100,99.0,80.0,0.0,0.0,0.0,75.09,98.17

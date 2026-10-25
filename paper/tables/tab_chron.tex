@@ -1,0 +1,27 @@
+\begin{tabular}{lp{3.3cm}p{3.2cm}}
+\toprule
+time & event & note \\
+\midrule
+21:04 & environment built; smoke test 13/13 & torch cu130, sm\_120 verified \\
+21:22 & Heretic abliteration complete & 200 trials, 99$\to$3 refusals, KL 0.0506 \\
+21:27 & direction-agreement gate: DISAGREEMENT & r-hat re-derived from weight diff \\
+21:30 & H1/H2/H3 all FALSIFIED & kurtosis 1.494$\to$1.490, err ratio 1.000 \\
+21:45 & rank-1 ceiling identified & $\|\Delta W\|/\|W\| \approx 1/\sqrt{d}$ \\
+21:50 & $\rho$ confound found & surrogate 5.34 vs true 1.94 \\
+21:53 & premise tested: \emph{no} re-censoring & \textbf{inverted --- classifier fault} \\
+22:16 & base-model effect appears & \textbf{spurious --- classifier fault} \\
+00:52 & MMLU per-item flip rates & superseded \\
+00:54 & margin hypothesis falsified & AUC 0.44 / 0.52 / 0.35 \\
+01:10 & layer localisation measured & superseded \\
+01:27 & bnb NF4 validates simulation & 3\% vs 5\% flips \\
+03:40 & \textbf{qualitative audit} & \textbf{24/24 and 51/51 were refusals} \\
+04:10 & generation/judging separated & 17{,}600 generations persisted \\
+05:30 & judge validated against AI labels & later found not to be human \\
+06:10 & re-measurement complete & abl.\ 5.0$\to$14.5\%, base null \\
+06:39 & dose-response sweep complete & threshold at 4 bits \\
+d+3 & GPTQ / AWQ / Q4\_K\_M arms & no deployed quantizer re-censors \\
+d+4 & \textbf{blind human annotation} & \textbf{132 labels; effect looked 4$\times$ inflated} \\
+d+4 & \textbf{language correction} & \textbf{13/17 ``garbled'' were fluent Chinese} \\
+d+4 & \textbf{split by response language} & \textbf{English-only effect n.s.\ ($p=0.17$)} \\
+\bottomrule
+\end{tabular}

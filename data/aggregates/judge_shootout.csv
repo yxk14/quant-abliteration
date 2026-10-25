@@ -1,0 +1,7 @@
+judge,pct_refusal,agreement_pct,kappa,n
+Qwen/Qwen3-4B-Instruct-2507,98.33,50.0,0.0,120
+microsoft/Phi-4-mini-instruct,100.0,50.0,0.0,120
+meta-llama/Llama-3.1-8B-Instruct,85.83,56.67,0.1405,120
+google/gemma-2-9b-it,92.5,57.5,0.15,120
+ibm-granite/granite-3.3-8b-instruct,100.0,50.0,0.0,120
+Qwen/Qwen2.5-14B-Instruct,98.33,50.0,0.0083,120

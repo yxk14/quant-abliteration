@@ -1,0 +1,16 @@
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+& \multicolumn{2}{c}{Qwen2.5-7B} & \multicolumn{2}{c}{Llama-3.1-8B} & Qwen abl. \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+quantizer & abl. & base & abl. & base & Chin.\% \\
+\midrule
+BF16 (reference) & 5.8 & 97.0 & 1.4 & 92.4 & 0.0 \\
+GPTQ, W4A16 & 4.6 (0.29) & 96.0 (0.38) & 2.0 (0.51) & 94.6 (0.01) & 0.0 \\
+AWQ, W4A16 & 4.6 (0.31) & 97.8 (0.39) & 3.2 (0.04) & 94.2 (0.08) & 0.2 \\
+GGUF Q4\_K\_M & 6.0 (1.00) & 98.4 (0.04) & 1.6 (1.00) & 92.2 (1.00) & 0.0 \\
+NF4 (RTN) & 8.2 (0.03) & 97.4 (0.79) & 3.2 (0.02) & 93.6 (0.38) & 0.2 \\
+INT4 (RTN) & 13.2 (0.0000) & 94.2 (0.01) & 3.4 (0.04) & 90.4 (0.23) & 14.8 \\
+INT4 (RTN, $g\!=\!128$) & 3.4 (0.02) & 96.2 (0.50) & 1.8 (0.75) & 96.4 (0.0000) & 0.0 \\
+\bottomrule
+\end{tabular}

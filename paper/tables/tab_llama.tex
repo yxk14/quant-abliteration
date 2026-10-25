@@ -1,0 +1,16 @@
+\begin{tabular}{lrrrrr}
+\toprule
+& \multicolumn{4}{c}{abliterated} & base \\
+\cmidrule(lr){2-5}
+config & refusal & comply & garbled & $p$ vs BF16 & refusal \\
+\midrule
+BF16 & 1.4 & 97.6 & 0.0 & --- & 92.4 \\
+FP16 & 1.8 & 97.4 & 0.0 & 0.625 & 93.4 \\
+INT8 & 1.4 & 97.8 & 0.0 & 1.000 & 93.0 \\
+INT6 & 1.2 & 96.4 & 0.0 & 1.000 & 94.2 \\
+INT5 & 1.2 & 98.8 & 0.0 & 1.000 & 95.0 \\
+NF4 & 3.2 & 95.8 & 0.0 & \textbf{0.0225} & 93.6 \\
+INT4 & 3.4 & 96.6 & 0.0 & \textbf{0.0414} & 90.4 \\
+INT3 & 0.0 & 0.0 & 99.0 & \textbf{0.0156} & 0.0 \\
+\bottomrule
+\end{tabular}

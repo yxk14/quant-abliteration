@@ -1,0 +1,8 @@
+model,short,variant,fmt,width,config,n,refusal_rate,completion_rate,adj_refusal_rate,dfr
+Mistral7B,Mistral7B,base,BF16,16,BF16,100,13.0,15.0,53.33,0.0
+Mistral7B,Mistral7B,base,FP,16,FP16,100,12.0,14.0,57.14,1.0
+Mistral7B,Mistral7B,base,FP,8,FP8,100,13.0,15.0,40.0,4.0
+Mistral7B,Mistral7B,base,FP,4,FP4,100,11.0,9.0,44.44,4.0
+Mistral7B,Mistral7B,base,INT,16,INT16,100,15.0,14.0,57.14,2.0
+Mistral7B,Mistral7B,base,INT,8,INT8,100,13.0,12.0,58.33,2.0
+Mistral7B,Mistral7B,base,INT,4,INT4,100,42.0,19.0,84.21,29.0
