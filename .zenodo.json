@@ -1,0 +1,16 @@
+{
+  "title": "Quantization Does Not Undo Abliteration: A Measurement Study of Refusal in Compressed Language Models (artifact)",
+  "upload_type": "dataset",
+  "description": "Artifact for the ARTMAN 2026 (ACSAC workshop) paper. Evaluation prompts, judge verdicts for all 46,600 generations (response text replaced by SHA-256), human annotation labels, checkpoint-differencing and rank-sweep measurements, and the code that produces every table and figure in the paper. Raw model responses are distributed as a separate restricted file on this record.",
+  "creators": [
+    {"name": "Kim, Yoohwan", "affiliation": "University of Nevada, Las Vegas"},
+    {"name": "Jo, Juyeon", "affiliation": "University of Nevada, Las Vegas"},
+    {"name": "Kim, Jayden", "affiliation": "West Career and Technical Academy"}
+  ],
+  "keywords": ["abliteration", "quantization", "refusal", "LLM safety", "model compression"],
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "related_identifiers": [
+    {"identifier": "https://github.com/yxk14/quant-abliteration", "relation": "isSupplementTo", "scheme": "url"}
+  ]
+}
