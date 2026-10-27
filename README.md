@@ -26,8 +26,8 @@ Archived copy: https://doi.org/10.5281/zenodo.23680374 (Zenodo, concept DOI cove
 
 The harmful completions themselves are not posted openly. Every verdict file
 carries `text_sha256` for each response, and the raw files
-(`responses-raw.tar.gz`, about 270 MB) are available under a click-through
-access condition from the Zenodo record; the hashes let a reader verify that
+(`responses-raw.tar.gz`, 63 MB) are available on request from the restricted
+Zenodo record https://doi.org/10.5281/zenodo.23680595; the hashes let a reader verify that
 the controlled file is the one the verdicts were computed from. Everything
 else in this repository is public.
 
