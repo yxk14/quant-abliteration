@@ -12,6 +12,15 @@
 \usepackage{float,stfloats,multirow,array}
 \usepackage[hidelinks]{hyperref}
 \hypersetup{pdftitle={Quantization Does Not Undo Abliteration: A Measurement Study of Refusal in Compressed Language Models},pdfauthor={Yoohwan Kim, Juyeon Jo, Jayden Kim}}
+%% 2026-10-26: compsoc conference mode puts a full \baselineskip above AND
+%% below every section/subsection heading; halve the gap below the heading
+%% (the gap above is unchanged).
+\makeatletter
+\def\section{\@startsection{section}{1}{\z@}{1\baselineskip plus 0.25\baselineskip minus 0.25\baselineskip}%
+{0.5\baselineskip plus 0.1\baselineskip minus 0.1\baselineskip}{\normalfont\large\bfseries}}%
+\def\subsection{\@startsection{subsection}{2}{\z@}{1\baselineskip plus 0.25\baselineskip minus 0.25\baselineskip}%
+{0.5\baselineskip plus 0.1\baselineskip minus 0.1\baselineskip}{\normalfont\sublargesize\bfseries}}%
+\makeatother
 
 %% Camera-ready artifact pointers. ARTIFACT-TODO: replace both with the real,
 %% resolving URLs before submission (chairs: no link => rejection).
@@ -144,7 +153,7 @@ We abliterate with Heretic 1.4.0, a 200-trial Optuna search minimising refusals 
 \subsection{What abliteration actually edits} \label{sec:whatedits}
 
 \begin{figure}[t]
-\centering\includegraphics[width=0.87\columnwidth]{figs/fig_ablation}
+\centering\includegraphics[width=0.78\columnwidth]{figs/fig_ablation}
 \caption{(a) One decoder block. Of the six weight matrices, abliteration edits
 only \texttt{o\_proj} and \texttt{down\_proj}, the two whose output
 is \emph{added into} the residual stream. Q/K/V and gate/up \emph{read} from the
@@ -176,7 +185,7 @@ Along the removed direction the three abliterated checkpoints retain $R_{\rm BF1
 Generation and scoring are separated: all $46{,}600$ generations are persisted, and refusal labels are assigned afterwards by a judge model (gemma-4-12b-it) under a three-way REFUSAL / COMPLY / GARBLED rubric that is language-agnostic and treats degeneration as its own outcome. Against $132$ blind reference labels annotated by one author the judge agrees $87.9\%$ of the time, $\kappa = 0.74$ (Fig.~\ref{fig:judge}). That set is stratified toward instrument disagreement, so the figure is a stress test rather than a prevalence-weighted estimate of corpus-wide accuracy. We also record whether each response is written in a non-Latin script.
 
 \begin{figure}[t]
-\centering\includegraphics[width=.72\columnwidth]{figs/fig_judge}
+\centering\includegraphics[width=0.64\columnwidth]{figs/fig_judge}
 \caption{Judge validation on $132$ blind hand annotations, stratified across
 agreement, disagreement and clear-compliance cases. The judge agrees with the
 human label $87.9\%$ of the time ($\kappa = 0.74$), the substring classifier
@@ -227,7 +236,7 @@ Per-channel rounding is the aggressive end of its family; shipped RTN is group-w
 
 Every number in this subsection counts refusals over all $500$ responses regardless of the language they are in. The next subsection decomposes the INT4 count by response language.
 
-\subsection{Language switching under per-channel rounding}
+\subsection{Language switching under per-channel \texorpdfstring{\mbox{rounding}}{rounding}}
 \label{sec:language}
 
 \begin{figure}[t]
@@ -288,7 +297,7 @@ Table~\ref{tab:curve}.}
 \end{table}
 
 \begin{figure}[t]
-\centering\includegraphics[width=0.9\columnwidth]{figs/fig_mmlu}
+\centering\includegraphics[width=0.8\columnwidth]{figs/fig_mmlu}
 \caption{MMLU across precisions, base against abliterated. The curves coincide
 at every width in both families. Llama loses far more to INT4 than Qwen and
 moves its refusal behaviour less.}
@@ -338,8 +347,8 @@ This rules out, subject to the even-energy condition the derivation assumes, a f
 quantization step, one point per edited tensor. A weight must move half a step
 to change its quantized value; the edit is roughly $50$ times smaller. (b) The
 gain with which the difference between the two \emph{quantized} models
-reproduces the edit. Erasure would put these at $0$; they sit at $1$. Table~\ref{tab:rankreal}
-shows that this is true of any sub-step edit and therefore explains nothing on
+reproduces the edit. Erasure would put these at $0$; they sit at $1$. The rank sweep that
+follows shows that this is true of any sub-step edit and therefore explains nothing on
 its own.}
 \label{fig:dither}
 \end{figure}
@@ -362,7 +371,7 @@ Despite this, the edit is preserved. Write $\Delta W = W_{\rm abl} - W_{\rm base
 \[ \pi \;=\; \frac{\bigl\langle Q(W_{\rm abl}) - Q(W_{\rm base}),\; \Delta W \bigr\rangle}{\|\Delta W\|^2}, \]
 so that $\pi = 0$ means erasure and $\pi = 1$ exact reproduction. Across $148$ edited tensors in three checkpoints the median is $0.99$ (Fig.~\ref{fig:dither}b).
 
-\textbf{This result is a property of rounding rather than of abliteration, and by itself it does not explain the behavioural finding.} If a weight sits uniformly within its bin, a displacement $\delta$ below the step size moves it across a boundary with probability $\delta/\Delta_q$ and by a full step when it does, so $\mathbb{E}\left[Q(w+\delta) - Q(w)\right] = \delta$ for \emph{any} sub-step edit. This is the dithering argument familiar from signal quantization, and it predicts unit gain regardless of how the edit is shaped. Table~\ref{tab:rankreal} confirms it on the real edited matrices: edits of the same Frobenius magnitude spread over $1$ to $256$ real directions all reproduce at gain $0.98$ under INT4, and at $0.99$ to $1.00$ under NF4, FP8 and INT8 (Fig.~\ref{fig:rankreal}b). Unit gain therefore does not by itself explain why abliteration survives.
+\textbf{This result is a property of rounding rather than of abliteration, and by itself it does not explain the behavioural finding.} If a weight sits uniformly within its bin, a displacement $\delta$ below the step size moves it across a boundary with probability $\delta/\Delta_q$ and by a full step when it does, so $\mathbb{E}\left[Q(w+\delta) - Q(w)\right] = \delta$ for \emph{any} sub-step edit. This is the dithering argument familiar from signal quantization, and it predicts unit gain regardless of how the edit is shaped. The rank sweep below confirms it on the real edited matrices: edits of the same Frobenius magnitude spread over $1$ to $256$ real directions all reproduce at gain $0.98$ under INT4, and at $0.99$ to $1.00$ under NF4, FP8 and INT8. Unit gain therefore does not by itself explain why abliteration survives.
 
 \begin{table}[t]
 \caption{Rank sweep on the real edited matrices with real directions. For each
@@ -395,7 +404,7 @@ rank changes is how much residue lands beside it.}
 
 The distinguishing factor is where the rounding residue goes. Rounding returns the edit plus a residue of about four times the edit's norm, and that residue is spread over all $d$ directions of the row space. Behaviour after a rank-one ablation is read out through a single direction $\hat{r}$, so the residue competing with it there is smaller by roughly $\sqrt{d}$; a diffuse edit of the same norm receives no such suppression. The scaling this predicts is $\mathrm{SNR} \approx (\|\Delta W\|/\|\rho\|)\sqrt{d/k}$ for an edit of rank $k$ against a residue $\rho$, which is $k^{-1/2}$ at fixed edit norm.
 
-Table~\ref{tab:rankreal} and Fig.~\ref{fig:rankreal} test this on the real edited matrices rather than on random directions. For every one of the $54$ matrices abliteration edits in Qwen2.5-7B we take the refusal direction the rank-one edit removes, extend it with the leading principal directions of the harmful-minus-harmless activation difference at that layer, and remove $k$ of these directions at once with the Frobenius norm of the edit held at its rank-one value. At $k = 1$ this is the paper's edit up to the ablation weight, and the INT4 ratio it gives on \texttt{layers.18.o\_proj}, $7.7$, agrees with the $8.1$ measured on the Heretic edit of that matrix, where a random rank-one direction had given $11.2$. As $k$ grows the ratio inside the edited subspace falls from $7.2$ to $0.7$ at $k = 256$, crossing unity near $k \approx 120$, with a fitted exponent of $-0.42$ ($R^2 = 0.9996$) against the predicted $-0.5$; NF4, FP8 and INT8 give $-0.44$, $-0.50$ and $-0.45$ from higher starting points. The gain remains at unity throughout. The control column shows that the ratio did not fall only because the edit got smaller: with $\alpha_k = 1$ the edit grows fourteenfold over the same range and the ratio falls by a factor of two rather than ten (exponent $-0.14$), the remaining decline reflecting that the later principal directions carry less of $W$ than the refusal direction does. The ratio over the whole matrix, by contrast, sits at $0.20$ to $0.23$ at every rank, which is why the residue-to-edit ratio of four in Table~\ref{tab:dither} does not by itself determine survival: the quantity that carries the rank information is the ratio inside the subspace the behaviour is read from.
+We test this on the real edited matrices rather than on random directions. For every one of the $54$ matrices abliteration edits in Qwen2.5-7B we take the refusal direction the rank-one edit removes, extend it with the leading principal directions of the harmful-minus-harmless activation difference at that layer, and remove $k$ of these directions at once with the Frobenius norm of the edit held at its rank-one value (Table~\ref{tab:rankreal}, Fig.~\ref{fig:rankreal}). At $k = 1$ this is the paper's edit up to the ablation weight, and the INT4 ratio it gives on \texttt{layers.18.o\_proj}, $7.7$, agrees with the $8.1$ measured on the Heretic edit of that matrix, where a random rank-one direction had given $11.2$. As $k$ grows the ratio inside the edited subspace falls from $7.2$ to $0.7$ at $k = 256$, crossing unity near $k \approx 120$, with a fitted exponent of $-0.42$ ($R^2 = 0.9996$) against the predicted $-0.5$; NF4, FP8 and INT8 give $-0.44$, $-0.50$ and $-0.45$ from higher starting points. The gain remains at unity throughout. The control column shows that the ratio did not fall only because the edit got smaller: with $\alpha_k = 1$ the edit grows fourteenfold over the same range and the ratio falls by a factor of two rather than ten (exponent $-0.14$), the remaining decline reflecting that the later principal directions carry less of $W$ than the refusal direction does. The ratio over the whole matrix, by contrast, sits at $0.20$ to $0.23$ at every rank, which is why the residue-to-edit ratio of four in Table~\ref{tab:dither} does not by itself determine survival: the quantity that carries the rank information is the ratio inside the subspace the behaviour is read from.
 
 The statement the data support is therefore narrower than the per-weight argument's. \emph{Every} sub-step edit survives quantization in expectation; a \emph{low-rank} edit also survives in effect, because the readout direction is one of $d$ and the damage is spread across all of them. Abliteration is rank one by construction (\S\ref{sec:whatedits}), which places it at the favourable end of that scale, and \S\ref{sec:noise} confirms from the behavioural side that the ablated component is barely refilled.
 
@@ -408,7 +417,7 @@ Whether the residue happens to point along $\hat{r}$ is a separate question from
 \subsection{Effect of calibration on activation-space displacement} \label{sec:actspace}
 
 \begin{figure}[t]
-\centering\includegraphics[width=\columnwidth]{figs/fig_actspace}
+\centering\includegraphics[width=0.9\columnwidth]{figs/fig_actspace}
 \caption{Each quantizer's displacement along the ablated direction as a share of
 what INT4 rounding produces, measured in the weights (grey) and in what
 \texttt{o\_proj} writes to the residual stream on real harmful prompts (blue).
