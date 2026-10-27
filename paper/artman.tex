@@ -25,6 +25,9 @@
 %% contribution list flush with the paragraph indent.
 \IEEEaftertitletext{\vspace{-2\baselineskip}}
 \clubpenalty=10000 \widowpenalty=10000 \displaywidowpenalty=10000
+%% Columns with top floats end a fraction of a line short; let that slack sit
+%% at the column foot instead of being spread between paragraphs.
+\raggedbottom
 \IEEEilabelindent 0pt
 
 %% Camera-ready artifact pointers. ARTIFACT-TODO: replace both with the real,
