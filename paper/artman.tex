@@ -21,6 +21,11 @@
 \def\subsection{\@startsection{subsection}{2}{\z@}{1\baselineskip plus 0.25\baselineskip minus 0.25\baselineskip}%
 {0.5\baselineskip plus 0.1\baselineskip minus 0.1\baselineskip}{\normalfont\sublargesize\bfseries}}%
 \makeatother
+%% Pull the body up one line toward the author block; single-line widows/orphans forbidden, and the
+%% contribution list flush with the paragraph indent.
+\IEEEaftertitletext{\vspace{-2\baselineskip}}
+\clubpenalty=10000 \widowpenalty=10000 \displaywidowpenalty=10000
+\IEEEilabelindent 0pt
 
 %% Camera-ready artifact pointers. ARTIFACT-TODO: replace both with the real,
 %% resolving URLs before submission (chairs: no link => rejection).
@@ -79,7 +84,7 @@ when the same edit energy is spread over $k$ directions. Compression should
 therefore not be relied on as a defense against abliteration.
 \end{abstract}
 
-\begin{IEEEkeywords} machine unlearning, safety alignment, abliteration, quantization, weight editing, GPTQ, AWQ, model auditing \end{IEEEkeywords}
+\begin{IEEEkeywords} machine unlearning, safety alignment, abliteration, quantization, weight editing, model auditing \end{IEEEkeywords}
 
 \section{Introduction} \label{sec:intro}
 
@@ -374,18 +379,13 @@ so that $\pi = 0$ means erasure and $\pi = 1$ exact reproduction. Across $148$ e
 \textbf{This result is a property of rounding rather than of abliteration, and by itself it does not explain the behavioural finding.} If a weight sits uniformly within its bin, a displacement $\delta$ below the step size moves it across a boundary with probability $\delta/\Delta_q$ and by a full step when it does, so $\mathbb{E}\left[Q(w+\delta) - Q(w)\right] = \delta$ for \emph{any} sub-step edit. This is the dithering argument familiar from signal quantization, and it predicts unit gain regardless of how the edit is shaped. The rank sweep below confirms it on the real edited matrices: edits of the same Frobenius magnitude spread over $1$ to $256$ real directions all reproduce at gain $0.98$ under INT4, and at $0.99$ to $1.00$ under NF4, FP8 and INT8. Unit gain therefore does not by itself explain why abliteration survives.
 
 \begin{table}[t]
-\caption{Rank sweep on the real edited matrices with real directions. For each
-of the $54$ matrices abliteration edits in Qwen2.5-7B (\texttt{o\_proj} and
-\texttt{down\_proj} in all $27$ edited layers), the edit
-$\Delta W_k = -\alpha_k D_k D_k^{\top} W$ removes $k$ directions: the
-difference-in-means refusal direction and the $k{-}1$ leading principal
-directions of the harmful-minus-harmless activation difference at that layer,
-extracted from $512$ AdvBench and HarmBench prompts. $\alpha_k$ holds
-$\|\Delta W_k\|_F$ at its rank-one value. ``gain'' is $\pi$ under INT4; SNR is
-the edit's norm over the residue's norm \emph{inside the $k$-dimensional edited
-subspace}, mean over matrices. The control column repeats the INT4 sweep with
-$\alpha_k = 1$, so the edit grows with $k$ instead of being norm-matched. The
-last row is the exponent of a log-log fit of SNR against $k$.}
+\caption{Rank sweep on the $54$ edited matrices of Qwen2.5-7B
+(\texttt{o\_proj} and \texttt{down\_proj} in all $27$ edited layers), with the
+edit norm held at its rank-one value (\S\ref{sec:dither}). ``gain'' is $\pi$
+under INT4; SNR is the edit's norm over the residue's norm inside the
+$k$-dimensional edited subspace, mean over matrices. ``control'' repeats the
+INT4 sweep with $\alpha_k = 1$. The last row is the exponent of a log-log fit
+of SNR against $k$.}
 \label{tab:rankreal}
 \centering\scriptsize
 \input{tables/tab_rank_real}
@@ -404,7 +404,7 @@ rank changes is how much residue lands beside it.}
 
 The distinguishing factor is where the rounding residue goes. Rounding returns the edit plus a residue of about four times the edit's norm, and that residue is spread over all $d$ directions of the row space. Behaviour after a rank-one ablation is read out through a single direction $\hat{r}$, so the residue competing with it there is smaller by roughly $\sqrt{d}$; a diffuse edit of the same norm receives no such suppression. The scaling this predicts is $\mathrm{SNR} \approx (\|\Delta W\|/\|\rho\|)\sqrt{d/k}$ for an edit of rank $k$ against a residue $\rho$, which is $k^{-1/2}$ at fixed edit norm.
 
-We test this on the real edited matrices rather than on random directions. For every one of the $54$ matrices abliteration edits in Qwen2.5-7B we take the refusal direction the rank-one edit removes, extend it with the leading principal directions of the harmful-minus-harmless activation difference at that layer, and remove $k$ of these directions at once with the Frobenius norm of the edit held at its rank-one value (Table~\ref{tab:rankreal}, Fig.~\ref{fig:rankreal}). At $k = 1$ this is the paper's edit up to the ablation weight, and the INT4 ratio it gives on \texttt{layers.18.o\_proj}, $7.7$, agrees with the $8.1$ measured on the Heretic edit of that matrix, where a random rank-one direction had given $11.2$. As $k$ grows the ratio inside the edited subspace falls from $7.2$ to $0.7$ at $k = 256$, crossing unity near $k \approx 120$, with a fitted exponent of $-0.42$ ($R^2 = 0.9996$) against the predicted $-0.5$; NF4, FP8 and INT8 give $-0.44$, $-0.50$ and $-0.45$ from higher starting points. The gain remains at unity throughout. The control column shows that the ratio did not fall only because the edit got smaller: with $\alpha_k = 1$ the edit grows fourteenfold over the same range and the ratio falls by a factor of two rather than ten (exponent $-0.14$), the remaining decline reflecting that the later principal directions carry less of $W$ than the refusal direction does. The ratio over the whole matrix, by contrast, sits at $0.20$ to $0.23$ at every rank, which is why the residue-to-edit ratio of four in Table~\ref{tab:dither} does not by itself determine survival: the quantity that carries the rank information is the ratio inside the subspace the behaviour is read from.
+We test this on the real edited matrices rather than on random directions. For every one of the $54$ matrices abliteration edits in Qwen2.5-7B we take the refusal direction the rank-one edit removes, extend it with the leading principal directions of the harmful-minus-harmless activation difference at that layer, extracted from $512$ AdvBench and HarmBench prompts, and remove $k$ of these directions at once, $\Delta W_k = -\alpha_k D_k D_k^{\top} W$, with $\alpha_k$ chosen so that $\|\Delta W_k\|_F$ stays at its rank-one value (Table~\ref{tab:rankreal}, Fig.~\ref{fig:rankreal}). At $k = 1$ this is the paper's edit up to the ablation weight, and the INT4 ratio it gives on \texttt{layers.18.o\_proj}, $7.7$, agrees with the $8.1$ measured on the Heretic edit of that matrix, where a random rank-one direction had given $11.2$. As $k$ grows the ratio inside the edited subspace falls from $7.2$ to $0.7$ at $k = 256$, crossing unity near $k \approx 120$, with a fitted exponent of $-0.42$ ($R^2 = 0.9996$) against the predicted $-0.5$; NF4, FP8 and INT8 give $-0.44$, $-0.50$ and $-0.45$ from higher starting points. The gain remains at unity throughout. The control column shows that the ratio did not fall only because the edit got smaller: with $\alpha_k = 1$ the edit grows fourteenfold over the same range and the ratio falls by a factor of two rather than ten (exponent $-0.14$), the remaining decline reflecting that the later principal directions carry less of $W$ than the refusal direction does. The ratio over the whole matrix, by contrast, sits at $0.20$ to $0.23$ at every rank, which is why the residue-to-edit ratio of four in Table~\ref{tab:dither} does not by itself determine survival: the quantity that carries the rank information is the ratio inside the subspace the behaviour is read from.
 
 The statement the data support is therefore narrower than the per-weight argument's. \emph{Every} sub-step edit survives quantization in expectation; a \emph{low-rank} edit also survives in effect, because the readout direction is one of $d$ and the damage is spread across all of them. Abliteration is rank one by construction (\S\ref{sec:whatedits}), which places it at the favourable end of that scale, and \S\ref{sec:noise} confirms from the behavioural side that the ablated component is barely refilled.
 
@@ -426,7 +426,7 @@ displacement and shed most of the activation displacement.}
 \label{fig:actspace}
 \end{figure}
 
-\S\ref{sec:dither} explains why no quantizer erases the edit. A separate question is why the quantizers differ at all in what reaches behaviour, and the answer is that the weight metric $R$ does not capture it. $R$ weights every input direction equally, whereas behaviour depends on $\hat{r}^{\top}(Wx)$ for the $x$ the model sees. Hooking the residual-stream write matrices, we measure \[ A \;=\; \frac{\mathbb{E}_x\,\bigl|\hat{r}\cdot(Wx)\bigr|} {\mathbb{E}_x\,\bigl|\hat{r}\cdot(W_{\rm base}x)\bigr|} \] on $120$ prompts from the evaluation set at the final prompt position, normalised per layer and averaged over edited layers.
+\S\ref{sec:dither} explains why no quantizer erases the edit. A separate question is why the quantizers differ at all in what reaches behaviour, and the answer is that the weight metric $R$ does not capture it. $R$ weights every input direction equally, whereas behaviour depends on $\hat{r}^{\top}(Wx)$ for the $x$ the model sees. Hooking the residual-stream write matrices, we measure {\abovedisplayskip=3pt plus 1pt \belowdisplayskip=3pt plus 1pt \[ A \;=\; \frac{\mathbb{E}_x\,\bigl|\hat{r}\cdot(Wx)\bigr|} {\mathbb{E}_x\,\bigl|\hat{r}\cdot(W_{\rm base}x)\bigr|} \]} on $120$ prompts from the evaluation set at the final prompt position, normalised per layer and averaged over edited layers.
 
 Measured this way the two rankings come apart. Against the abliterated checkpoint at $A = 0.202$, INT4 rounding raises the component $28.1\%$, AWQ $8.7\%$, GPTQ $5.1\%$, Q4\_K\_M $2.3\%$, and NF4 lowers it $2.7\%$. As a share of what rounding achieves, \textbf{GPTQ carries $72\%$ of the weight displacement and $18\%$ of the activation displacement} (Fig.~\ref{fig:actspace}), a fourfold attenuation, which is what calibration is for: both calibrated methods arrange for layer outputs to survive, and displacement along $\hat{r}$ in weight space then need not appear in the residual stream. Uniform rounding has no corresponding mechanism.
 
