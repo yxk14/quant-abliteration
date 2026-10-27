@@ -407,7 +407,7 @@ try:
     # Stacked at column width: diagram on top, per-layer magnitudes below.
     fig = plt.figure(figsize=(3.4, 4.9))
     gs = fig.add_gridspec(2, 1, height_ratios=[1.3, 1], hspace=.42)
-    ax = fig.add_subplot(gs[0]); ax.set_xlim(0, 10.2); ax.set_ylim(0, 11.2)
+    ax = fig.add_subplot(gs[0]); ax.set_xlim(0.7, 10.9); ax.set_ylim(0, 11.2)
     ax.axis("off"); ax.grid(False)
 
     def box(x, y, w, h, t, col, fc, fs=5.8, bold=False):
@@ -452,7 +452,7 @@ try:
             ha="center", weight="bold")
     ax.text(5.0, 0.25, "$W' = W - \\hat{r}\\,\\hat{r}^{\\top} W$   applied to the two"
             " write matrices only", fontsize=6, ha="center", color="#14161C")
-    ax.set_title("(a) one decoder block: only the write paths are edited", fontsize=7, loc="left")
+    ax.set_title("(a) one decoder block: only the write paths are edited", fontsize=7, loc="center")
 
     # right panel: per-layer edit magnitude
     a2 = fig.add_subplot(gs[1])
@@ -464,7 +464,7 @@ try:
     a2.set_xlabel("layer", fontsize=6.5); a2.set_ylabel("$\\|\\Delta W\\|_F/\\|W\\|_F$  (%)", fontsize=6.5)
     a2.tick_params(labelsize=6)
     a2.legend(frameon=False, fontsize=5.8)
-    a2.set_title("(b) edited layers 5--27 / 9--26; the rest untouched", fontsize=7, loc="left")
+    a2.set_title("(b) edited layers 5--27 / 9--26; the rest untouched", fontsize=7, loc="center")
     a2.set_xticks([0, 5, 10, 15, 20, 25])
     save(fig, "fig_ablation")
 except Exception as e:
