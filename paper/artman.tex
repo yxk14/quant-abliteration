@@ -24,6 +24,7 @@
 %% Pull the body up one line toward the author block; single-line widows/orphans forbidden, and the
 %% contribution list flush with the paragraph indent.
 \IEEEaftertitletext{\vspace{-1.2\baselineskip}}
+\def\IEEEtitletopspaceextra{-2\baselineskip}
 \makeatletter\def\@IEEEauthorblockconfadjspace{0pt}\makeatother
 \clubpenalty=10000 \widowpenalty=10000 \displaywidowpenalty=10000
 %% Columns with top floats end a fraction of a line short; let that slack sit
@@ -214,7 +215,7 @@ in parentheses. The last column is the share of the abliterated Qwen model's
 responses written in Chinese.}
 \label{tab:quantizer}
 \centering\scriptsize
-\input{tables/tab_quantizer}
+\resizebox{\columnwidth}{!}{\input{tables/tab_quantizer}}
 \end{table}
 
 Table~\ref{tab:quantizer} is the behavioural result. The reference point for reading it is that an abliterated Qwen2.5-7B refuses $5.8\%$ of the prompt set where its unablated base model refuses $97.0\%$. Restoring refusal would mean moving the first number toward the second. None of the quantizers in the table does so.
@@ -262,7 +263,7 @@ Hand-auditing the non-compliance verdicts in the BF16 and INT4 cells revealed th
 
 The switch is concentrated in the one quantizer that produced most of the anomaly (last column of Table~\ref{tab:quantizer}). Under INT4 rounding $3.2\%$ of all responses in the study come back in a non-Latin script; at every other precision and under every deployed quantizer the rate is at most $0.05\%$, five responses in $38{,}500$. Within Qwen the INT4 rate tracks ablation depth, $3.6\%$ for the unablated model, $14.8\%$ for the KL-constrained checkpoint and $29.6\%$ for the full projection. Llama produces none at any setting.
 
-Table~\ref{tab:split} splits the INT4 count by response language, and an English-only effect remains. Of the KL-constrained checkpoint's $66$ refusals at INT4, $19$ are in Chinese and $47$ in English, against $29$ at BF16. The English-only rise is $5.8\%$ to $9.4\%$ over all prompts ($p=0.02$) and $11.0\%$ over the $426$ responses that stayed in English ($p=0.01$); the switched responses refuse at $25.7\%$, some four times the English rate in the same cell. The full projection switches language twice as often ($29.6\%$) and shows no English-only rise at all ($7.6\%$ to $7.0\%$, $p=0.78$), a difference two checkpoints cannot explain.
+Table~\ref{tab:split} splits the INT4 count by response language, and an English-only effect remains. Of the KL-constrained checkpoint's $66$ refusals at INT4, $19$ are in Chinese and $47$ in English, against $29$ at BF16. The English-only rise is $5.8\%$ to $9.4\%$ over all prompts ($p=0.02$) and $11.0\%$ over the $426$ responses that stayed in English ($p=0.01$). At $500$ prompts the same-language effect is resolved at about four points; at the $200$ prompts of an earlier version of this study it was not. The switched responses refuse at $25.7\%$, some four times the English rate in the same cell. The full projection switches language twice as often ($29.6\%$) and shows no English-only rise at all ($7.6\%$ to $7.0\%$, $p=0.78$), a difference that two checkpoints are too few to explain.
 
 \subsection{Transfer of the ablation to Chinese prompts} \label{sec:zh}
 
@@ -276,11 +277,11 @@ exact McNemar test between the two languages, paired by prompt.}
 \input{tables/tab_zh}
 \end{table}
 
-One hypothesis is that Heretic fits its direction on English prompt pairs, so Chinese refusal machinery is never ablated and a perturbation that pushes the model into Chinese meets an unablated model. The test requires no quantization: prompt the unquantized abliterated checkpoint in Chinese.
+An alternative hypothesis is that Heretic fits its direction on English prompt pairs, so Chinese refusal machinery is never ablated and a perturbation that pushes the model into Chinese meets an unablated model. The test requires no quantization: prompt the unquantized abliterated checkpoint in Chinese and see whether it refuses.
 
-Table~\ref{tab:zh} gives the result, and it does not support this hypothesis. The base model refuses $96.0\%$ of the Chinese prompt set and $96.0\%$ of the English one ($p=1.00$), which also confirms that translation preserved the requests' character. The abliterated checkpoint refuses $10.5\%$ of the Chinese prompt set against that $96.0\%$. The English-fitted edit therefore removes most refusal in a language that never appeared in the pairs used to fit it, agreeing with Wang et al.~\cite{wang2025universal} for a weight edit rather than an activation intervention.
+Table~\ref{tab:zh} gives the result, and it does not support this hypothesis. The base model refuses $96.0\%$ of the Chinese prompt set and $96.0\%$ of the English one ($p=1.00$), which also confirms that translation preserved the requests' character. The abliterated checkpoint refuses $10.5\%$ of the Chinese prompt set against that $96.0\%$. The English-fitted edit therefore removes most refusal in a language that never appeared in the pairs used to fit it, agreeing with Wang et al.~\cite{wang2025universal} for a weight edit rather than an activation edit.
 
-A residual asymmetry remains: the abliterated model still refuses more in Chinese than in English, $10.5\%$ against $5.0\%$ ($p=0.04$), and $15.5\%$ against $7.5\%$ for the full projection ($p=0.01$), with the two sets of refused prompts barely overlapping. Transfer is therefore substantial but not complete, and it does not account for the effect in \S\ref{sec:language}.
+A residual asymmetry remains: the abliterated model still refuses more in Chinese than in English, $10.5\%$ against $5.0\%$ ($p=0.04$), and $15.5\%$ against $7.5\%$ for the full projection ($p=0.01$), with the two sets of refused prompts barely overlapping. Transfer is therefore substantial but not complete, and it is not sufficient on its own to account for the English-only effect in \S\ref{sec:language}.
 
 If switched responses were simply the model operating in Chinese they would refuse at $10.5\%$. They refuse at $25.7\%$. Whatever INT4 rounding does to this checkpoint elevates refusal beyond what answering in Chinese accounts for, on exactly the prompts where it also flips the language, and it elevates refusal among the English answers too. We read the switch and the excess refusal as two effects of one perturbation rather than one causing the other; we do not have a mechanism for either.
 
@@ -340,7 +341,7 @@ This rules out, subject to the even-energy condition the derivation assumes, a f
 \subsection{Survival in expectation and survival in effect} \label{sec:dither}
 
 \begin{figure}[t]
-\centering\includegraphics[width=0.75\columnwidth]{figs/fig_dither}
+\centering\includegraphics[width=0.93\columnwidth]{figs/fig_dither}
 \caption{(a) The abliteration edit, per weight, as a fraction of the 4-bit
 quantization step, one point per edited tensor. A weight must move half a step
 to change its quantized value; the edit is roughly $50$ times smaller. (b) The
@@ -385,7 +386,7 @@ against $k$.}
 \end{table}
 
 \begin{figure}[t]
-\centering\includegraphics[width=0.88\columnwidth]{figs/fig_rank_real}
+\centering\includegraphics[width=\columnwidth]{figs/fig_rank_real}
 \caption{The sweep of Table~\ref{tab:rankreal}, mean $\pm$ s.d.\ over the $54$
 edited matrices. (a) Inside the edited subspace the signal-to-noise ratio falls
 close to the predicted $k^{-1/2}$ under every quantizer, while the control arm,
@@ -498,13 +499,11 @@ what the substring classifier reported on the identical generations.}
 
 \input{tables/tab_items_artman}
 
-%% ACSAC policy: the LLM Usage Statement is the last section of the paper. The
-%% \clearpage flushes the Appendix B table* float so nothing lands after it.
-\clearpage
+%% ACSAC policy: the LLM Usage Statement is the last section of the paper.
 \section*{LLM Usage Statement}
 This statement follows the ACSAC 2026 policy on the use of large language models and does not count toward the page limit. LLMs enter this work in two roles.
 
-\textbf{LLMs as part of the methodology.} Refusal labels for all $46{,}600$ generations are assigned by an openly available judge model, gemma-4-12b-it, under the rubric of \S\ref{sec:judge}, and the Chinese prompt set of \S\ref{sec:zh} is translated by Qwen2.5-14B-Instruct, chosen because it is not the judge. Both are central methodological choices and we treat them as instruments to be validated. The judge is validated against $132$ blind human annotations drawn from the distribution it is applied to, at $87.9\%$ agreement and $\kappa = 0.74$, with the direction of its residual errors reported; the limitations of single-judge dependence, the judge's dropped verdicts and the absence of human-checked translations are recorded in \S\ref{sec:threats}. Both models are open-weight, so the labelling is reproducible from the released generations, which the artifact persists so that any reader may re-score them under a different rubric or judge without repeating the generation work.
+\textbf{LLMs as part of the methodology.} Refusal labels for all $46{,}600$ generations are assigned by an openly available judge model, gemma-4-12b-it, under the rubric of \S\ref{sec:judge}, and the Chinese prompt set of \S\ref{sec:zh} is translated by Qwen2.5-14B-Instruct, chosen because it is not the judge. Both are central methodological choices and we treat them as instruments to be validated. The judge is validated against $132$ blind human annotations drawn from the distribution it is applied to, at $87.9\%$ agreement and $\kappa = 0.74$, with the direction of its residual errors reported; the limitations of single-judge dependence, the judge's dropped verdicts and the absence of human-checked translations are recorded in \S\ref{sec:threats}.
 
 \textbf{LLMs for editorial and coding purposes.} LLMs were used for editorial purposes in this manuscript, and all outputs were inspected by the authors to ensure accuracy and originality. An LLM-based coding assistant was also used to write and debug the measurement and analysis code and to generate the figures and tables from the scored files; that code was reviewed and run by the authors. The authors designed and ran all experiments on their own hardware, verified the reported results, and take full responsibility for the paper's correctness, originality and integrity. Every number in the paper is produced programmatically from the judged generation files rather than transcribed.
 
