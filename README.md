@@ -6,7 +6,7 @@ and Jayden Kim. It contains the evaluation prompts, every judge verdict for the
 and rank-sweep measurements, and the code that produced every table and
 figure in the paper.
 
-Archived copy: see the Zenodo DOI in the paper's Artifact Availability section.
+Archived copy: https://doi.org/10.5281/zenodo.23680374 (Zenodo, concept DOI covering all versions).
 
 ## Layout
 
