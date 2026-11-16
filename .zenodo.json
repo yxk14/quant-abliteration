@@ -1,7 +1,7 @@
 {
-  "title": "Quantization Does Not Undo Abliteration: A Measurement Study of Refusal in Compressed Language Models (artifact)",
+  "title": "Quantization Does Not Undo Abliteration / Substring Refusal Detection Fabricates Safety Effects under Quantization (artifact)",
   "upload_type": "dataset",
-  "description": "Artifact for the ARTMAN 2026 (ACSAC workshop) paper. Evaluation prompts, judge verdicts for all 46,600 generations (response text replaced by SHA-256), human annotation labels, checkpoint-differencing and rank-sweep measurements, and the code that produces every table and figure in the paper. Raw model responses are distributed as a separate restricted file on this record.",
+  "description": "Artifact for two ACSAC 2026 workshop papers (ARTMAN 2026 and CSET 2026). Evaluation prompts, judge verdicts for all 46,600 generations (response text replaced by SHA-256), human annotation labels (132 reference labels plus 300 second-annotator labels), checkpoint-differencing and rank-sweep measurements, the judge ablation, the failure-mode decomposition, the language-switch mechanism experiments, and the code that produces every table and figure in both papers. Raw model responses are distributed through a separate restricted record.",
   "creators": [
     {
       "name": "Kim, Yoohwan",
@@ -12,16 +12,23 @@
       "affiliation": "University of Nevada, Las Vegas"
     },
     {
+      "name": "Chan, Ki",
+      "affiliation": "University of Nevada, Las Vegas"
+    },
+    {
       "name": "Kim, Jayden",
       "affiliation": "West Career and Technical Academy"
     }
   ],
   "keywords": [
+    "LLM safety",
+    "LLM-as-judge",
     "abliteration",
+    "measurement validity",
+    "model compression",
     "quantization",
     "refusal",
-    "LLM safety",
-    "model compression"
+    "refusal detection"
   ],
   "license": "cc-by-4.0",
   "access_right": "open",

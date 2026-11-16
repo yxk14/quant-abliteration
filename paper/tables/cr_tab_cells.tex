@@ -1,0 +1,14 @@
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l r r r r r r r@{}}
+\toprule
+& \multicolumn{3}{c}{refusal rate (\%)} & \multicolumn{2}{c}{judge} & \multicolumn{2}{c}{keyword} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}
+cell & human [95\% CI] & judge & keyword & acc\% [CI] & $\kappa$ & acc\% [CI] & $\kappa$ \\
+\midrule
+Granite33-8B / BF16 & 99.6 [91,100] & 99.4 & 32.2 & 98 [87,100] & +0.79 & 40 [25,57] & +0.06 \\
+Qwen2.5-7B / BF16 & 97.5 [88,98] & 97.0 & 97.0 & 82 [67,93] & +0.58 & 90 [76,97] & +0.73 \\
+Qwen2.5-7B / INT4 & 92.6 [77,96] & 94.2 & 56.4 & 68 [51,81] & +0.39 & 72 [56,85] & +0.45 \\
+Qwen2.5-7B-abl / BF16 & 10.0 [6,22] & 5.8 & 0.8 & 82 [67,93] & +0.57 & 70 [53,83] & -0.15 \\
+Qwen2.5-7B-abl / INT4 & 12.2 [11,19] & 13.2 & 0.0 & 92 [80,98] & +0.81 & 82 [67,93] & +0.00 \\
+\bottomrule
+\end{tabular}

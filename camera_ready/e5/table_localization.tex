@@ -1,0 +1,35 @@
+\setlength{\tabcolsep}{2.2pt}
+\begin{tabular}{@{}l l r r r r r r r r r r@{}}
+\toprule
+& & & rel. err. & \multicolumn{3}{c}{Chinese} & \multicolumn{3}{c}{judge refusal \%} & garbled & keyword \\
+\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+subject & modules quantized (INT4 RTN) & \#mat. & \% & $n$ & \% & at tok.\,0 \% & all & switched & English & \% & \% \\
+\midrule
+abliterated & BF16 (none) & 0 & 0.00 & 0 & 0.0 & --- & 5.6 & --- & 5.6 & 0.0 & 0.8 \\
+abliterated & all linear layers (paper's INT4 RTN) & 196 & 19.92 & 73 & 14.6 & 96 & 14.0 & 26.0 & 11.9 & 0.8 & 0.0 \\
+abliterated & embed\_tokens only & 1 & 16.09 & 0 & 0.0 & --- & 5.6 & --- & 5.6 & 0.2 & 0.8 \\
+abliterated & lm\_head only & 1 & 40.07 & 66 & 13.2 & 0 & 4.8 & 12.1 & 3.7 & 21.2 & 0.4 \\
+abliterated & layers 0--3 & 28 & 19.13 & 0 & 0.0 & --- & 6.8 & --- & 6.8 & 0.0 & 0.6 \\
+abliterated & layers 0--6 & 49 & 19.20 & 26 & 5.2 & 100 & 7.8 & 38.5 & 6.1 & 0.2 & 0.0 \\
+abliterated & layers 4--5 & 14 & 19.18 & 0 & 0.0 & --- & 5.6 & --- & 5.6 & 0.2 & 1.4 \\
+abliterated & layers 4--6 & 21 & 19.30 & 1 & 0.2 & 100 & 4.8 & 0.0 & 4.8 & 0.2 & 1.0 \\
+abliterated & layers 6--6 & 7 & 19.54 & 0 & 0.0 & --- & 7.6 & --- & 7.6 & 0.0 & 0.8 \\
+abliterated & layers 7--13 & 49 & 19.59 & 2 & 0.4 & 50 & 10.0 & 0.0 & 10.0 & 0.0 & 2.0 \\
+abliterated & layers 14--20 & 49 & 20.34 & 0 & 0.0 & --- & 5.0 & --- & 5.0 & 0.0 & 0.4 \\
+abliterated & layers 21--27 & 49 & 20.55 & 1 & 0.2 & 0 & 5.8 & 0.0 & 5.8 & 1.0 & 0.2 \\
+abliterated & attention projections only & 112 & 20.17 & 0 & 0.0 & --- & 8.0 & --- & 8.0 & 0.0 & 1.6 \\
+abliterated & MLP projections only & 84 & 19.59 & 82 & 16.4 & 93 & 15.2 & 19.5 & 14.4 & 0.4 & 0.0 \\
+abliterated & all linear + embed + head & 198 & 20.00 & 215 & 43.0 & 3 & 2.0 & 1.4 & 2.5 & 92.6 & 0.4 \\
+base & BF16 (none) & 0 & 0.00 & 0 & 0.0 & --- & 96.8 & --- & 96.8 & 0.0 & 96.8 \\
+base & all linear layers (paper's INT4 RTN) & 196 & 19.92 & 17 & 3.4 & 94 & 93.8 & 100.0 & 93.6 & 0.2 & 56.2 \\
+base & embed\_tokens only & 1 & 16.09 & 0 & 0.0 & --- & 96.8 & --- & 96.8 & 0.0 & 96.2 \\
+base & lm\_head only & 1 & 40.07 & 70 & 14.0 & 0 & 96.4 & 97.1 & 96.3 & 1.2 & 98.0 \\
+base & layers 0--6 & 49 & 19.20 & 2 & 0.4 & 100 & 97.0 & 100.0 & 97.0 & 0.2 & 96.6 \\
+base & layers 7--13 & 49 & 19.59 & 0 & 0.0 & --- & 97.4 & --- & 97.4 & 0.0 & 90.6 \\
+base & layers 14--20 & 49 & 20.34 & 0 & 0.0 & --- & 97.0 & --- & 97.0 & 0.0 & 92.0 \\
+base & layers 21--27 & 49 & 20.55 & 3 & 0.6 & 0 & 96.6 & 100.0 & 96.6 & 0.2 & 95.8 \\
+base & attention projections only & 112 & 20.17 & 0 & 0.0 & --- & 96.4 & --- & 96.4 & 0.0 & 95.8 \\
+base & MLP projections only & 84 & 19.59 & 23 & 4.6 & 91 & 97.2 & 100.0 & 97.1 & 0.0 & 62.6 \\
+base & all linear + embed + head & 198 & 20.00 & 176 & 35.2 & 0 & 63.4 & 52.8 & 69.1 & 33.8 & 50.0 \\
+\bottomrule
+\end{tabular}

@@ -1,0 +1,23 @@
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+& & \multicolumn{2}{c}{sample ($n{=}132$)} & \multicolumn{2}{c}{population-weighted} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+instrument & \%REFUSAL & agree\% & $\kappa$ & agree\% & $\kappa$ \\
+\midrule
+gemma-4-12b-it \emph{(primary)} & 71.2 & 87.9 & +0.740 & 97.8 & +0.955 \\
+\emph{keyword substring} & 12.9 & 48.5 & \textbf{+0.151} & 91.5 & +0.823 \\
+\midrule
+Qwen3-4B-Instruct & 100.0 & 64.4 & \textbf{+0.000} & 64.3 & \textbf{+0.000} \\
+Phi-4-mini & 100.0 & 64.4 & \textbf{+0.000} & 64.3 & \textbf{+0.000} \\
+Llama-3.1-8B & 80.3 & 52.3 & \textbf{-0.130} & 65.0 & \textbf{+0.049} \\
+gemma-2-9b & 97.7 & 66.7 & \textbf{+0.093} & 68.4 & \textbf{+0.170} \\
+Granite-3.3-8B & 100.0 & 64.4 & \textbf{+0.000} & 64.3 & \textbf{+0.000} \\
+Qwen2.5-14B & 99.2 & 65.2 & \textbf{+0.034} & 64.3 & \textbf{+0.000} \\
+\midrule
+WildGuard & 40.2 & 72.7 & +0.484 & 94.0 & +0.874 \\
+distilroberta-rejection & 37.9 & 61.4 & +0.278 & 81.1 & +0.611 \\
+\midrule
+\emph{always-REFUSAL baseline} & 100.0 & 64.4 & 0 & 64.3 & 0 \\
+\bottomrule
+\end{tabular}

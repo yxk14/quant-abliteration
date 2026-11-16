@@ -1,7 +1,9 @@
 # Quantization Does Not Undo Abliteration: A Measurement Study of Refusal in Compressed Language Models
 
-Artifact for the ARTMAN 2026 (ACSAC workshop) paper by Yoohwan Kim, Juyeon Jo
-and Jayden Kim. It contains the evaluation prompts, every judge verdict for the
+Artifact for two ACSAC 2026 workshop papers by Yoohwan Kim, Juyeon Jo, Ki Chan
+and Jayden Kim: the ARTMAN 2026 paper named above and the CSET 2026 paper
+"Substring Refusal Detection Fabricates Safety Effects under Quantization"
+(`paper/cset.tex`, data and code under `camera_ready/`). It contains the evaluation prompts, every judge verdict for the
 46,600 generations, the human annotation labels, the checkpoint-differencing
 and rank-sweep measurements, and the code that produced every table and
 figure in the paper.
@@ -30,6 +32,29 @@ carries `text_sha256` for each response, and the raw files
 Zenodo record https://doi.org/10.5281/zenodo.23680595; the hashes let a reader verify that
 the controlled file is the one the verdicts were computed from. Everything
 else in this repository is public.
+
+## CSET 2026 paper: `camera_ready/`
+
+The measurement-validity paper reuses the corpus above and adds the
+experiments in `camera_ready/` (see `camera_ready/README.md` for the stage
+list and `camera_ready/REPORT.md` for the numbers):
+
+| Path | Contents |
+|---|---|
+| `camera_ready/e0/` | Population-weighted agreement (Table 2). |
+| `camera_ready/e1/` | Per-cell human validation: 200 blind labels by the third author (`gateB_packet.labels.csv`), the sampling frame with inclusion probabilities (`gateB_packet.json`, text stripped), machine translations hashed. |
+| `camera_ready/e2/` | Second-annotator check on 60 reference items, including the 14 non-Latin ones: both annotators' labels, the adjudication file, the gemma-2 machine-reader fallback. |
+| `camera_ready/e3/` | Failure-mode decomposition (Fig. 1, Tables 5 and 6): sub-classifier inputs (hashed) and predictions, 40 blind audit labels. |
+| `camera_ready/e4/` | Judge rubric ablation (Table 7) and the second judge over all 46,600 generations (Table 8). |
+| `camera_ready/e5/` | Mechanism of the language switch (Section 11, Fig. 3, Tables 9 and 10): fake-quantization generations with verdicts (text stripped), KL and dose-response numbers. The four first-token probability arrays (`*.npy`, 581 MB) are attached to the GitHub release, not committed. |
+| `camera_ready/lib/` | Shared loaders, the blind labelling tools (terminal and self-contained HTML), kappa and interval helpers. |
+
+Response text in every `camera_ready` file is replaced by `*_sha256` with
+`n_chars` / `n_cjk` / `n_latin`, as in `data/verdicts/`. The raw versions
+(`camera_ready-raw.tar.gz`, 16.5 MB) are on the same restricted Zenodo record
+as `responses-raw.tar.gz`. `bash camera_ready/run_all.sh cpu` regenerates every
+number, table and figure of the CSET paper from the hashed files plus the
+labels; the GPU stages need the checkpoints described above.
 
 ## Reproducing the paper's numbers
 

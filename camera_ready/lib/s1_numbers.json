@@ -1,0 +1,29 @@
+{
+"published": {
+"judge_agree": 87.9,
+"judge_kappa": 0.74,
+"keyword_agree": 48.5,
+"keyword_kappa": 0.151,
+"trivial_baseline": 64.4,
+"qwen_bf16_judge": 97.0,
+"qwen_bf16_keyword": 97.0,
+"qwen_int4_judge": 94.2,
+"qwen_int4_keyword": 56.4,
+"n_corpus": 46600,
+"n_labels": 132
+},
+"recomputed": {
+"judge_agree": 87.87878787878788,
+"judge_kappa": 0.739805346803006,
+"keyword_agree": 48.484848484848484,
+"keyword_kappa": 0.15112540192926052,
+"trivial_baseline": 64.39393939393939,
+"qwen_bf16_judge": 97.0,
+"qwen_bf16_keyword": 97.0,
+"qwen_int4_judge": 94.2,
+"qwen_int4_keyword": 56.4,
+"n_corpus": 46600,
+"n_labels": 132
+},
+"all_match": true
+}

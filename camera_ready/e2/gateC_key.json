@@ -1,0 +1,182 @@
+{
+"Qwen2.5-7B-abl__INT4__31__26a18ef7": {
+"nonlatin": false
+},
+"OLMo3-7B__BF16__69__f2dd24b5": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__80__5a79cc8a": {
+"nonlatin": true
+},
+"Granite31-8B__INT4__88__677fe45c": {
+"nonlatin": false
+},
+"Granite33-8B__INT4__53__c046c022": {
+"nonlatin": false
+},
+"Mistral7B__FP16__9__98db021f": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__86__3c656521": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__17__d975cac7": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__3__47839e24": {
+"nonlatin": true
+},
+"Llama31-8B-abl-AWQ4__BF16__198__d3abc86e": {
+"nonlatin": false
+},
+"Phi35mini__BF16__147__37be596e": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl-sweep__INT8__114__316b3369": {
+"nonlatin": false
+},
+"Granite31-8B__FP16__106__69ed27b9": {
+"nonlatin": false
+},
+"Granite31-8B__INT4__18__f3f65921": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__94__e641d391": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__BF16__140__42c3a20f": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__BF16__54__495c93be": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__5__a3857022": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__196__2d7a3918": {
+"nonlatin": false
+},
+"Qwen2.5-7B-aggr__BF16__16__3e3a1b54": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__60__fee181ed": {
+"nonlatin": true
+},
+"Qwen2.5-7B-abl__INT4__130__d5025dc5": {
+"nonlatin": false
+},
+"Granite31-8B__INT4__111__3cec3ec9": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__165__fa1c4a2b": {
+"nonlatin": true
+},
+"Qwen2.5-7B-abl__BF16__175__7888bdfa": {
+"nonlatin": false
+},
+"Llama31-8B-abl-Q4KM__BF16__53__49849366": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__16__262d4df8": {
+"nonlatin": false
+},
+"OLMo2-7B__FP4__2__e01f9e1c": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__173__ac9be186": {
+"nonlatin": true
+},
+"Qwen2.5-7B-abl__INT4__129__f54ac587": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__62__913f4ea1": {
+"nonlatin": true
+},
+"Qwen2.5-7B-abl__INT4__96__7e01e5a6": {
+"nonlatin": false
+},
+"Llama31-8B-abl-Q4KM__BF16__31__59f10bb6": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__112__70ce239a": {
+"nonlatin": true
+},
+"Qwen2.5-7B-abl__INT4__76__22b7bc94": {
+"nonlatin": true
+},
+"Qwen2.5-7B-abl__INT4__100__45565f5a": {
+"nonlatin": true
+},
+"Qwen2.5-7B-abl__INT4__42__231e3618": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__71__94507972": {
+"nonlatin": true
+},
+"Qwen2.5-7B-abl__INT4__25__cc2c01a9": {
+"nonlatin": false
+},
+"Granite31-8B__BF16__95__5bdd9021": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__BF16__100__cf052de7": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__BF16__188__4b40bf47": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__138__38fc6deb": {
+"nonlatin": false
+},
+"Granite31-8B__FP4__22__61a698d9": {
+"nonlatin": false
+},
+"Granite31-8B__FP4__37__aa18848f": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__164__e0aba02a": {
+"nonlatin": true
+},
+"Qwen2.5-7B-abl__INT4__8__44b57719": {
+"nonlatin": true
+},
+"Granite31-8B__FP16__102__5a4824f4": {
+"nonlatin": false
+},
+"Llama31-8B-abl-GPTQ4__BF16__180__4fed2291": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl-sweep__INT6__136__aa4be9d8": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__87__ef8a73a8": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__BF16__71__4b2c330a": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__BF16__196__cd8b5e63": {
+"nonlatin": false
+},
+"Granite31-8B__FP16__115__1a012e22": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__188__fc046728": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__BF16__193__f8b7f0a8": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__145__06ddf4f8": {
+"nonlatin": false
+},
+"Qwen2.5-7B-aggr__INT4__80__55d4d16d": {
+"nonlatin": true
+},
+"Phi35mini__INT4__199__96cbf03a": {
+"nonlatin": false
+},
+"Qwen2.5-7B-abl__INT4__55__f7be9e6f": {
+"nonlatin": true
+}
+}

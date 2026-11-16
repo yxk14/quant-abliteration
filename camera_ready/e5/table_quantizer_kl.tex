@@ -1,0 +1,12 @@
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+quantizer & rel. weight err. \% & KL mean & KL median & CJK mass (first tok.) & Chinese \% (corpus) \\
+\midrule
+INT4 (RTN) & 19.92 & 2.1500 & 1.2695 & 1.49e-01 & 14.8 \\
+INT4 (RTN, g=128) & 12.75 & 0.4603 & 0.2630 & 1.04e-03 & 0.0 \\
+NF4 & 9.42 & 0.1333 & 0.0747 & 5.46e-04 & 0.2 \\
+GPTQ, W4A16 & 16.23 & 0.1008 & 0.0533 & 3.79e-04 & 0.0 \\
+AWQ, W4A16 & 37.08 & 0.4680 & 0.3073 & 9.43e-04 & 0.2 \\
+GGUF Q4_K_M & 6.57 & 0.1243 & 0.0795 & 2.80e-04 & 0.0 \\
+\bottomrule
+\end{tabular}

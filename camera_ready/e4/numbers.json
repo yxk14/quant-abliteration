@@ -1,0 +1,2660 @@
+{
+"models": {
+"gemma-4-12b-it (control)": {
+"model": "google/gemma-4-12b-it",
+"max_resp_chars": 900,
+"table3_agree": 87.88,
+"c0_reproduces": true,
+"conditions": {
+"C0": {
+"model": "google/gemma-4-12b-it",
+"name": "gemma-4-12b-it (control)",
+"condition": "C0",
+"mode": "free",
+"pct_refusal": 70.45454545454545,
+"agree": 87.12121212121212,
+"kappa": 0.7264081931236284,
+"w_agree": 93.88016434834374,
+"w_kappa": 0.8801887590118832,
+"pct_unclear": 3.787878787878788,
+"confusion": {
+"COMPLY": {
+"COMPLY": 31,
+"GARBLED": 0,
+"REFUSAL": 10,
+"UNCLEAR": 1
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 3,
+"REFUSAL": 2,
+"UNCLEAR": 0
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 81,
+"UNCLEAR": 4
+},
+"UNCLEAR": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 0,
+"UNCLEAR": 0
+}
+}
+},
+"C1.0": {
+"model": "google/gemma-4-12b-it",
+"name": "gemma-4-12b-it (control)",
+"condition": "C1.0",
+"mode": "free",
+"pct_refusal": 70.45454545454545,
+"agree": 87.12121212121212,
+"kappa": 0.7264081931236284,
+"w_agree": 93.88016434834374,
+"w_kappa": 0.8801887590118832,
+"pct_unclear": 3.787878787878788,
+"confusion": {
+"COMPLY": {
+"COMPLY": 31,
+"GARBLED": 0,
+"REFUSAL": 10,
+"UNCLEAR": 1
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 3,
+"REFUSAL": 2,
+"UNCLEAR": 0
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 81,
+"UNCLEAR": 4
+},
+"UNCLEAR": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 0,
+"UNCLEAR": 0
+}
+}
+},
+"C1.1": {
+"model": "google/gemma-4-12b-it",
+"name": "gemma-4-12b-it (control)",
+"condition": "C1.1",
+"mode": "free",
+"pct_refusal": 72.72727272727273,
+"agree": 87.87878787878788,
+"kappa": 0.7356365001877582,
+"w_agree": 96.15677939274403,
+"w_kappa": 0.9195650541321166,
+"pct_unclear": 2.272727272727273,
+"confusion": {
+"COMPLY": {
+"COMPLY": 30,
+"GARBLED": 0,
+"REFUSAL": 11,
+"UNCLEAR": 1
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 3,
+"REFUSAL": 2,
+"UNCLEAR": 0
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 83,
+"UNCLEAR": 2
+},
+"UNCLEAR": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 0,
+"UNCLEAR": 0
+}
+}
+},
+"C1.2": {
+"model": "google/gemma-4-12b-it",
+"name": "gemma-4-12b-it (control)",
+"condition": "C1.2",
+"mode": "free",
+"pct_refusal": 65.15151515151516,
+"agree": 87.87878787878788,
+"kappa": 0.7480314960629921,
+"w_agree": 95.05174194834392,
+"w_kappa": 0.9031470230516409,
+"pct_unclear": 2.272727272727273,
+"confusion": {
+"COMPLY": {
+"COMPLY": 36,
+"GARBLED": 0,
+"REFUSAL": 6,
+"UNCLEAR": 0
+},
+"GARBLED": {
+"COMPLY": 1,
+"GARBLED": 2,
+"REFUSAL": 2,
+"UNCLEAR": 0
+},
+"REFUSAL": {
+"COMPLY": 4,
+"GARBLED": 0,
+"REFUSAL": 78,
+"UNCLEAR": 3
+},
+"UNCLEAR": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 0,
+"UNCLEAR": 0
+}
+}
+},
+"C1.3": {
+"model": "google/gemma-4-12b-it",
+"name": "gemma-4-12b-it (control)",
+"condition": "C1.3",
+"mode": "free",
+"pct_refusal": 66.66666666666667,
+"agree": 90.15151515151516,
+"kappa": 0.7951044776119403,
+"w_agree": 94.8352695985607,
+"w_kappa": 0.8992052046710802,
+"pct_unclear": 3.0303030303030303,
+"confusion": {
+"COMPLY": {
+"COMPLY": 36,
+"GARBLED": 0,
+"REFUSAL": 6,
+"UNCLEAR": 0
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 3,
+"REFUSAL": 2,
+"UNCLEAR": 0
+},
+"REFUSAL": {
+"COMPLY": 1,
+"GARBLED": 0,
+"REFUSAL": 80,
+"UNCLEAR": 4
+},
+"UNCLEAR": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 0,
+"UNCLEAR": 0
+}
+}
+},
+"C1.4": {
+"model": "google/gemma-4-12b-it",
+"name": "gemma-4-12b-it (control)",
+"condition": "C1.4",
+"mode": "free",
+"pct_refusal": 69.6969696969697,
+"agree": 91.66666666666667,
+"kappa": 0.8202302835211093,
+"w_agree": 99.00586281493374,
+"w_kappa": 0.9794289278459534,
+"pct_unclear": 0.7575757575757576,
+"confusion": {
+"COMPLY": {
+"COMPLY": 35,
+"GARBLED": 0,
+"REFUSAL": 7,
+"UNCLEAR": 0
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 3,
+"REFUSAL": 2,
+"UNCLEAR": 0
+},
+"REFUSAL": {
+"COMPLY": 1,
+"GARBLED": 0,
+"REFUSAL": 83,
+"UNCLEAR": 1
+},
+"UNCLEAR": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 0,
+"UNCLEAR": 0
+}
+}
+},
+"C1.5": {
+"model": "google/gemma-4-12b-it",
+"name": "gemma-4-12b-it (control)",
+"condition": "C1.5",
+"mode": "free",
+"pct_refusal": 68.18181818181819,
+"agree": 88.63636363636364,
+"kappa": 0.761129207383279,
+"w_agree": 94.35771697345221,
+"w_kappa": 0.8895501281982696,
+"pct_unclear": 3.0303030303030303,
+"confusion": {
+"COMPLY": {
+"COMPLY": 34,
+"GARBLED": 0,
+"REFUSAL": 8,
+"UNCLEAR": 0
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 3,
+"REFUSAL": 2,
+"UNCLEAR": 0
+},
+"REFUSAL": {
+"COMPLY": 1,
+"GARBLED": 0,
+"REFUSAL": 80,
+"UNCLEAR": 4
+},
+"UNCLEAR": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 0,
+"UNCLEAR": 0
+}
+}
+},
+"C2": {
+"model": "google/gemma-4-12b-it",
+"name": "gemma-4-12b-it (control)",
+"condition": "C2",
+"mode": "free",
+"pct_refusal": 70.45454545454545,
+"agree": 87.87878787878788,
+"kappa": 0.7357357357357357,
+"w_agree": 97.08958068018995,
+"w_kappa": 0.9387055822359003,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 32,
+"GARBLED": 0,
+"REFUSAL": 10
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 3,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 4,
+"GARBLED": 0,
+"REFUSAL": 81
+}
+}
+},
+"C3": {
+"model": "google/gemma-4-12b-it",
+"name": "gemma-4-12b-it (control)",
+"condition": "C3",
+"mode": "constrained",
+"pct_refusal": 74.24242424242425,
+"agree": 90.15151515151516,
+"kappa": 0.7793493635077793,
+"w_agree": 98.52831018982526,
+"w_kappa": 0.9692992081602184,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 31,
+"GARBLED": 0,
+"REFUSAL": 11
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 3,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C4": {
+"model": "google/gemma-4-12b-it",
+"name": "gemma-4-12b-it (control)",
+"condition": "C4",
+"mode": "constrained",
+"pct_refusal": 71.21212121212122,
+"agree": 88.63636363636364,
+"kappa": 0.7509120644106176,
+"w_agree": 97.0951566708827,
+"w_kappa": 0.9388206752408516,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 32,
+"GARBLED": 0,
+"REFUSAL": 10
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 3,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 3,
+"GARBLED": 0,
+"REFUSAL": 82
+}
+}
+},
+"C5": {
+"model": "google/gemma-4-12b-it",
+"name": "gemma-4-12b-it (control)",
+"condition": "C5",
+"mode": "constrained",
+"pct_refusal": 47.72727272727273,
+"agree": 75.0,
+"kappa": 0.5307045895281189,
+"w_agree": 98.18359005410863,
+"w_kappa": 0.9626893802585104,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 38,
+"GARBLED": 0,
+"REFUSAL": 4
+},
+"GARBLED": {
+"COMPLY": 1,
+"GARBLED": 3,
+"REFUSAL": 1
+},
+"REFUSAL": {
+"COMPLY": 27,
+"GARBLED": 0,
+"REFUSAL": 58
+}
+}
+},
+"C1": {
+"pct_refusal": {
+"mean": 68.81313131313131,
+"min": 65.15151515151516,
+"max": 72.72727272727273
+},
+"agree": {
+"mean": 88.8888888888889,
+"min": 87.12121212121212,
+"max": 91.66666666666667
+},
+"kappa": {
+"mean": 0.7644233596484512,
+"min": 0.7264081931236284,
+"max": 0.8202302835211093
+},
+"w_agree": {
+"mean": 95.54792251272973,
+"min": 93.88016434834374,
+"max": 99.00586281493374
+},
+"w_kappa": {
+"mean": 0.9118475161518239,
+"min": 0.8801887590118832,
+"max": 0.9794289278459534
+},
+"pct_unclear": {
+"mean": 2.5252525252525255,
+"min": 0.7575757575757576,
+"max": 3.787878787878788
+},
+"n_orderings": 6
+}
+}
+},
+"Qwen3-4B-Instruct": {
+"model": "Qwen/Qwen3-4B-Instruct-2507",
+"max_resp_chars": 1200,
+"table3_agree": 64.39,
+"c0_reproduces": true,
+"conditions": {
+"C0": {
+"model": "Qwen/Qwen3-4B-Instruct-2507",
+"name": "Qwen3-4B-Instruct",
+"condition": "C0",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.0": {
+"model": "Qwen/Qwen3-4B-Instruct-2507",
+"name": "Qwen3-4B-Instruct",
+"condition": "C1.0",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.1": {
+"model": "Qwen/Qwen3-4B-Instruct-2507",
+"name": "Qwen3-4B-Instruct",
+"condition": "C1.1",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.2": {
+"model": "Qwen/Qwen3-4B-Instruct-2507",
+"name": "Qwen3-4B-Instruct",
+"condition": "C1.2",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.3": {
+"model": "Qwen/Qwen3-4B-Instruct-2507",
+"name": "Qwen3-4B-Instruct",
+"condition": "C1.3",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.4": {
+"model": "Qwen/Qwen3-4B-Instruct-2507",
+"name": "Qwen3-4B-Instruct",
+"condition": "C1.4",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.5": {
+"model": "Qwen/Qwen3-4B-Instruct-2507",
+"name": "Qwen3-4B-Instruct",
+"condition": "C1.5",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C2": {
+"model": "Qwen/Qwen3-4B-Instruct-2507",
+"name": "Qwen3-4B-Instruct",
+"condition": "C2",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C3": {
+"model": "Qwen/Qwen3-4B-Instruct-2507",
+"name": "Qwen3-4B-Instruct",
+"condition": "C3",
+"mode": "constrained",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C4": {
+"model": "Qwen/Qwen3-4B-Instruct-2507",
+"name": "Qwen3-4B-Instruct",
+"condition": "C4",
+"mode": "constrained",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C5": {
+"model": "Qwen/Qwen3-4B-Instruct-2507",
+"name": "Qwen3-4B-Instruct",
+"condition": "C5",
+"mode": "constrained",
+"pct_refusal": 70.45454545454545,
+"agree": 43.93939393939394,
+"kappa": -0.2336448598130841,
+"w_agree": 65.213001830866,
+"w_kappa": 0.14152537171866478,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 4,
+"GARBLED": 0,
+"REFUSAL": 38
+},
+"GARBLED": {
+"COMPLY": 2,
+"GARBLED": 1,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 32,
+"GARBLED": 0,
+"REFUSAL": 53
+}
+}
+},
+"C1": {
+"pct_refusal": {
+"mean": 100.0,
+"min": 100.0,
+"max": 100.0
+},
+"agree": {
+"mean": 64.39393939393939,
+"min": 64.39393939393939,
+"max": 64.39393939393939
+},
+"kappa": {
+"mean": 0.0,
+"min": 0.0,
+"max": 0.0
+},
+"w_agree": {
+"mean": 64.30294422338528,
+"min": 64.30294422338528,
+"max": 64.30294422338528
+},
+"w_kappa": {
+"mean": 0.0,
+"min": 0.0,
+"max": 0.0
+},
+"pct_unclear": {
+"mean": 0.0,
+"min": 0.0,
+"max": 0.0
+},
+"n_orderings": 6
+}
+}
+},
+"Phi-4-mini": {
+"model": "microsoft/Phi-4-mini-instruct",
+"max_resp_chars": 1200,
+"table3_agree": 64.39,
+"c0_reproduces": true,
+"conditions": {
+"C0": {
+"model": "microsoft/Phi-4-mini-instruct",
+"name": "Phi-4-mini",
+"condition": "C0",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.0": {
+"model": "microsoft/Phi-4-mini-instruct",
+"name": "Phi-4-mini",
+"condition": "C1.0",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.1": {
+"model": "microsoft/Phi-4-mini-instruct",
+"name": "Phi-4-mini",
+"condition": "C1.1",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.2": {
+"model": "microsoft/Phi-4-mini-instruct",
+"name": "Phi-4-mini",
+"condition": "C1.2",
+"mode": "free",
+"pct_refusal": 96.21212121212122,
+"agree": 63.63636363636363,
+"kappa": 0.012930362984888623,
+"w_agree": 66.29077887632359,
+"w_kappa": 0.07278100298266295,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 2,
+"GARBLED": 0,
+"REFUSAL": 40
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 3,
+"GARBLED": 0,
+"REFUSAL": 82
+}
+}
+},
+"C1.3": {
+"model": "microsoft/Phi-4-mini-instruct",
+"name": "Phi-4-mini",
+"condition": "C1.3",
+"mode": "free",
+"pct_refusal": 98.48484848484848,
+"agree": 64.39393939393939,
+"kappa": 0.02514142049025775,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.03277798197756786,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 2,
+"REFUSAL": 40
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.4": {
+"model": "microsoft/Phi-4-mini-instruct",
+"name": "Phi-4-mini",
+"condition": "C1.4",
+"mode": "free",
+"pct_refusal": 73.48484848484848,
+"agree": 47.72727272727273,
+"kappa": -0.011550422034651203,
+"w_agree": 50.069546470151664,
+"w_kappa": -0.011385234863880057,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 9,
+"REFUSAL": 33
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 2,
+"REFUSAL": 3
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 24,
+"REFUSAL": 61
+}
+}
+},
+"C1.5": {
+"model": "microsoft/Phi-4-mini-instruct",
+"name": "Phi-4-mini",
+"condition": "C1.5",
+"mode": "free",
+"pct_refusal": 81.81818181818181,
+"agree": 50.0,
+"kappa": -0.07237813884785815,
+"w_agree": 46.39323385096537,
+"w_kappa": -0.11993612311148093,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 3,
+"REFUSAL": 39
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 1,
+"REFUSAL": 4
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 20,
+"REFUSAL": 65
+}
+}
+},
+"C2": {
+"model": "microsoft/Phi-4-mini-instruct",
+"name": "Phi-4-mini",
+"condition": "C2",
+"mode": "free",
+"pct_refusal": 97.72727272727273,
+"agree": 64.39393939393939,
+"kappa": 0.03724394785847307,
+"w_agree": 67.99598481464983,
+"w_kappa": 0.16396464996155807,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 1,
+"REFUSAL": 41
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 1,
+"REFUSAL": 4
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 1,
+"REFUSAL": 84
+}
+}
+},
+"C3": {
+"model": "microsoft/Phi-4-mini-instruct",
+"name": "Phi-4-mini",
+"condition": "C3",
+"mode": "constrained",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C4": {
+"model": "microsoft/Phi-4-mini-instruct",
+"name": "Phi-4-mini",
+"condition": "C4",
+"mode": "constrained",
+"pct_refusal": 97.72727272727273,
+"agree": 64.39393939393939,
+"kappa": 0.03724394785847307,
+"w_agree": 67.99598481464983,
+"w_kappa": 0.16396464996155807,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 1,
+"REFUSAL": 41
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 1,
+"REFUSAL": 4
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 1,
+"REFUSAL": 84
+}
+}
+},
+"C5": {
+"model": "microsoft/Phi-4-mini-instruct",
+"name": "Phi-4-mini",
+"condition": "C5",
+"mode": "constrained",
+"pct_refusal": 89.39393939393939,
+"agree": 56.06060606060606,
+"kappa": -0.10094909404659219,
+"w_agree": 67.70144859516805,
+"w_kappa": 0.15702098807511172,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 1,
+"GARBLED": 1,
+"REFUSAL": 3
+},
+"REFUSAL": {
+"COMPLY": 9,
+"GARBLED": 3,
+"REFUSAL": 73
+}
+}
+},
+"C1": {
+"pct_refusal": {
+"mean": 91.66666666666667,
+"min": 73.48484848484848,
+"max": 100.0
+},
+"agree": {
+"mean": 59.090909090909086,
+"min": 47.72727272727273,
+"max": 64.39393939393939
+},
+"kappa": {
+"mean": -0.007642796234560497,
+"min": -0.07237813884785815,
+"max": 0.02514142049025775
+},
+"w_agree": {
+"mean": 59.27706531126608,
+"min": 46.39323385096537,
+"max": 66.29077887632359
+},
+"w_kappa": {
+"mean": -0.00429372883585503,
+"min": -0.11993612311148093,
+"max": 0.07278100298266295
+},
+"pct_unclear": {
+"mean": 0.0,
+"min": 0.0,
+"max": 0.0
+},
+"n_orderings": 6
+}
+}
+},
+"Llama-3.1-8B": {
+"model": "meta-llama/Llama-3.1-8B-Instruct",
+"max_resp_chars": 1200,
+"table3_agree": 52.27,
+"c0_reproduces": true,
+"conditions": {
+"C0": {
+"model": "meta-llama/Llama-3.1-8B-Instruct",
+"name": "Llama-3.1-8B",
+"condition": "C0",
+"mode": "free",
+"pct_refusal": 80.3030303030303,
+"agree": 52.27272727272727,
+"kappa": -0.13004484304932737,
+"w_agree": 65.04113740662484,
+"w_kappa": 0.04937255494717782,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 3,
+"GARBLED": 0,
+"REFUSAL": 39
+},
+"GARBLED": {
+"COMPLY": 2,
+"GARBLED": 1,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 20,
+"GARBLED": 0,
+"REFUSAL": 65
+}
+}
+},
+"C1.0": {
+"model": "meta-llama/Llama-3.1-8B-Instruct",
+"name": "Llama-3.1-8B",
+"condition": "C1.0",
+"mode": "free",
+"pct_refusal": 80.3030303030303,
+"agree": 52.27272727272727,
+"kappa": -0.13004484304932737,
+"w_agree": 65.04113740662484,
+"w_kappa": 0.04937255494717782,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 3,
+"GARBLED": 0,
+"REFUSAL": 39
+},
+"GARBLED": {
+"COMPLY": 2,
+"GARBLED": 1,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 20,
+"GARBLED": 0,
+"REFUSAL": 65
+}
+}
+},
+"C1.1": {
+"model": "meta-llama/Llama-3.1-8B-Instruct",
+"name": "Llama-3.1-8B",
+"condition": "C1.1",
+"mode": "free",
+"pct_refusal": 82.57575757575758,
+"agree": 51.515151515151516,
+"kappa": -0.1744751842068678,
+"w_agree": 63.380359556513554,
+"w_kappa": -0.01079413228622166,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 2,
+"GARBLED": 0,
+"REFUSAL": 40
+},
+"GARBLED": {
+"COMPLY": 2,
+"GARBLED": 0,
+"REFUSAL": 3
+},
+"REFUSAL": {
+"COMPLY": 19,
+"GARBLED": 0,
+"REFUSAL": 66
+}
+}
+},
+"C1.2": {
+"model": "meta-llama/Llama-3.1-8B-Instruct",
+"name": "Llama-3.1-8B",
+"condition": "C1.2",
+"mode": "free",
+"pct_refusal": 60.60606060606061,
+"agree": 49.24242424242424,
+"kappa": -0.043293618025244764,
+"w_agree": 67.08574611823886,
+"w_kappa": 0.19047878638164087,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 14,
+"GARBLED": 0,
+"REFUSAL": 28
+},
+"GARBLED": {
+"COMPLY": 2,
+"GARBLED": 1,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 35,
+"GARBLED": 0,
+"REFUSAL": 50
+}
+}
+},
+"C1.3": {
+"model": "meta-llama/Llama-3.1-8B-Instruct",
+"name": "Llama-3.1-8B",
+"condition": "C1.3",
+"mode": "free",
+"pct_refusal": 62.878787878787875,
+"agree": 50.0,
+"kappa": -0.0436032582654528,
+"w_agree": 64.86471114343907,
+"w_kappa": 0.12337854540839516,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 13,
+"GARBLED": 0,
+"REFUSAL": 29
+},
+"GARBLED": {
+"COMPLY": 2,
+"GARBLED": 1,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 33,
+"GARBLED": 0,
+"REFUSAL": 52
+}
+}
+},
+"C1.4": {
+"model": "meta-llama/Llama-3.1-8B-Instruct",
+"name": "Llama-3.1-8B",
+"condition": "C1.4",
+"mode": "free",
+"pct_refusal": 76.51515151515152,
+"agree": 53.03030303030303,
+"kappa": -0.08053868497491422,
+"w_agree": 65.74631436290204,
+"w_kappa": 0.070696425236133,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 6,
+"GARBLED": 0,
+"REFUSAL": 36
+},
+"GARBLED": {
+"COMPLY": 2,
+"GARBLED": 1,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 22,
+"GARBLED": 0,
+"REFUSAL": 63
+}
+}
+},
+"C1.5": {
+"model": "meta-llama/Llama-3.1-8B-Instruct",
+"name": "Llama-3.1-8B",
+"condition": "C1.5",
+"mode": "free",
+"pct_refusal": 71.21212121212122,
+"agree": 47.72727272727273,
+"kappa": -0.1565714285714285,
+"w_agree": 66.32467453767427,
+"w_kappa": 0.10988496273643587,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 6,
+"GARBLED": 0,
+"REFUSAL": 36
+},
+"GARBLED": {
+"COMPLY": 2,
+"GARBLED": 1,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 29,
+"GARBLED": 0,
+"REFUSAL": 56
+}
+}
+},
+"C2": {
+"model": "meta-llama/Llama-3.1-8B-Instruct",
+"name": "Llama-3.1-8B",
+"condition": "C2",
+"mode": "free",
+"pct_refusal": 99.24242424242425,
+"agree": 65.15151515151516,
+"kappa": 0.02801344645429804,
+"w_agree": 64.4135286764291,
+"w_kappa": 0.004102384534133795,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 1,
+"GARBLED": 0,
+"REFUSAL": 41
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C3": {
+"model": "meta-llama/Llama-3.1-8B-Instruct",
+"name": "Llama-3.1-8B",
+"condition": "C3",
+"mode": "constrained",
+"pct_refusal": 84.0909090909091,
+"agree": 56.06060606060606,
+"kappa": -0.07724778387505288,
+"w_agree": 71.09561608530052,
+"w_kappa": 0.24772104731194144,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 5,
+"GARBLED": 0,
+"REFUSAL": 37
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 16,
+"GARBLED": 0,
+"REFUSAL": 69
+}
+}
+},
+"C4": {
+"model": "meta-llama/Llama-3.1-8B-Instruct",
+"name": "Llama-3.1-8B",
+"condition": "C4",
+"mode": "constrained",
+"pct_refusal": 99.24242424242425,
+"agree": 63.63636363636363,
+"kappa": -0.01424683848247157,
+"w_agree": 64.29736823269252,
+"w_kappa": -0.000105337997109417,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 1,
+"GARBLED": 0,
+"REFUSAL": 84
+}
+}
+},
+"C5": {
+"model": "meta-llama/Llama-3.1-8B-Instruct",
+"name": "Llama-3.1-8B",
+"condition": "C5",
+"mode": "constrained",
+"pct_refusal": 61.36363636363637,
+"agree": 43.18181818181818,
+"kappa": -0.17382025136352855,
+"w_agree": 66.96763616194283,
+"w_kappa": 0.20251175281982783,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 9,
+"GARBLED": 0,
+"REFUSAL": 33
+},
+"GARBLED": {
+"COMPLY": 3,
+"GARBLED": 1,
+"REFUSAL": 1
+},
+"REFUSAL": {
+"COMPLY": 38,
+"GARBLED": 0,
+"REFUSAL": 47
+}
+}
+},
+"C1": {
+"pct_refusal": {
+"mean": 72.34848484848486,
+"min": 60.60606060606061,
+"max": 82.57575757575758
+},
+"agree": {
+"mean": 50.631313131313135,
+"min": 47.72727272727273,
+"max": 53.03030303030303
+},
+"kappa": {
+"mean": -0.10475450284887257,
+"min": -0.1744751842068678,
+"max": -0.043293618025244764
+},
+"w_agree": {
+"mean": 65.40715718756543,
+"min": 63.380359556513554,
+"max": 67.08574611823886
+},
+"w_kappa": {
+"mean": 0.08883619040392683,
+"min": -0.01079413228622166,
+"max": 0.19047878638164087
+},
+"pct_unclear": {
+"mean": 0.0,
+"min": 0.0,
+"max": 0.0
+},
+"n_orderings": 6
+}
+}
+},
+"gemma-2-9b": {
+"model": "google/gemma-2-9b-it",
+"max_resp_chars": 1200,
+"table3_agree": 66.67,
+"c0_reproduces": true,
+"conditions": {
+"C0": {
+"model": "google/gemma-2-9b-it",
+"name": "gemma-2-9b",
+"condition": "C0",
+"mode": "free",
+"pct_refusal": 97.72727272727273,
+"agree": 66.66666666666667,
+"kappa": 0.09349149367878881,
+"w_agree": 68.35092157094066,
+"w_kappa": 0.1695167689609587,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 1,
+"GARBLED": 0,
+"REFUSAL": 41
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 2,
+"REFUSAL": 3
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.0": {
+"model": "google/gemma-2-9b-it",
+"name": "gemma-2-9b",
+"condition": "C1.0",
+"mode": "free",
+"pct_refusal": 97.72727272727273,
+"agree": 66.66666666666667,
+"kappa": 0.09349149367878881,
+"w_agree": 68.35092157094066,
+"w_kappa": 0.1695167689609587,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 1,
+"GARBLED": 0,
+"REFUSAL": 41
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 2,
+"REFUSAL": 3
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.1": {
+"model": "google/gemma-2-9b-it",
+"name": "gemma-2-9b",
+"condition": "C1.1",
+"mode": "free",
+"pct_refusal": 97.72727272727273,
+"agree": 66.66666666666667,
+"kappa": 0.09349149367878881,
+"w_agree": 68.35092157094066,
+"w_kappa": 0.1695167689609587,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 1,
+"GARBLED": 0,
+"REFUSAL": 41
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 2,
+"REFUSAL": 3
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.2": {
+"model": "google/gemma-2-9b-it",
+"name": "gemma-2-9b",
+"condition": "C1.2",
+"mode": "free",
+"pct_refusal": 65.9090909090909,
+"agree": 87.12121212121212,
+"kappa": 0.7255381604696673,
+"w_agree": 98.6444598271061,
+"w_kappa": 0.97175869418393,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 35,
+"GARBLED": 0,
+"REFUSAL": 7
+},
+"GARBLED": {
+"COMPLY": 3,
+"GARBLED": 1,
+"REFUSAL": 1
+},
+"REFUSAL": {
+"COMPLY": 6,
+"GARBLED": 0,
+"REFUSAL": 79
+}
+}
+},
+"C1.3": {
+"model": "google/gemma-2-9b-it",
+"name": "gemma-2-9b",
+"condition": "C1.3",
+"mode": "free",
+"pct_refusal": 54.54545454545455,
+"agree": 79.54545454545455,
+"kappa": 0.6090819348469891,
+"w_agree": 94.78038912602146,
+"w_kappa": 0.897149881177,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 37,
+"GARBLED": 1,
+"REFUSAL": 4
+},
+"GARBLED": {
+"COMPLY": 3,
+"GARBLED": 1,
+"REFUSAL": 1
+},
+"REFUSAL": {
+"COMPLY": 11,
+"GARBLED": 7,
+"REFUSAL": 67
+}
+}
+},
+"C1.4": {
+"model": "google/gemma-2-9b-it",
+"name": "gemma-2-9b",
+"condition": "C1.4",
+"mode": "free",
+"pct_refusal": 68.93939393939394,
+"agree": 68.18181818181819,
+"kappa": 0.389225515038008,
+"w_agree": 80.13836380264623,
+"w_kappa": 0.6073046805084419,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 11,
+"GARBLED": 18,
+"REFUSAL": 13
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 3,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 9,
+"REFUSAL": 76
+}
+}
+},
+"C1.5": {
+"model": "google/gemma-2-9b-it",
+"name": "gemma-2-9b",
+"condition": "C1.5",
+"mode": "free",
+"pct_refusal": 62.878787878787875,
+"agree": 67.42424242424242,
+"kappa": 0.40911930043722666,
+"w_agree": 76.41656382352957,
+"w_kappa": 0.5560078544971121,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 13,
+"GARBLED": 20,
+"REFUSAL": 9
+},
+"GARBLED": {
+"COMPLY": 1,
+"GARBLED": 3,
+"REFUSAL": 1
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 12,
+"REFUSAL": 73
+}
+}
+},
+"C2": {
+"model": "google/gemma-2-9b-it",
+"name": "gemma-2-9b",
+"condition": "C2",
+"mode": "free",
+"pct_refusal": 98.48484848484848,
+"agree": 65.9090909090909,
+"kappa": 0.06662476429918292,
+"w_agree": 68.24033711789684,
+"w_kappa": 0.16582685080154447,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 2,
+"REFUSAL": 3
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C3": {
+"model": "google/gemma-2-9b-it",
+"name": "gemma-2-9b",
+"condition": "C3",
+"mode": "constrained",
+"pct_refusal": 97.72727272727273,
+"agree": 66.66666666666667,
+"kappa": 0.09349149367878881,
+"w_agree": 68.35092157094066,
+"w_kappa": 0.1695167689609587,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 1,
+"GARBLED": 0,
+"REFUSAL": 41
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 2,
+"REFUSAL": 3
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C4": {
+"model": "google/gemma-2-9b-it",
+"name": "gemma-2-9b",
+"condition": "C4",
+"mode": "constrained",
+"pct_refusal": 98.48484848484848,
+"agree": 65.9090909090909,
+"kappa": 0.06662476429918292,
+"w_agree": 68.24033711789684,
+"w_kappa": 0.16582685080154447,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 2,
+"REFUSAL": 3
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C5": {
+"model": "google/gemma-2-9b-it",
+"name": "gemma-2-9b",
+"condition": "C5",
+"mode": "constrained",
+"pct_refusal": 97.72727272727273,
+"agree": 65.9090909090909,
+"kappa": 0.07288902762603403,
+"w_agree": 68.24033711789684,
+"w_kappa": 0.16586662691818693,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 1,
+"GARBLED": 2,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1": {
+"pct_refusal": {
+"mean": 74.62121212121212,
+"min": 54.54545454545455,
+"max": 97.72727272727273
+},
+"agree": {
+"mean": 72.6010101010101,
+"min": 66.66666666666667,
+"max": 87.12121212121212
+},
+"kappa": {
+"mean": 0.38665798302491144,
+"min": 0.09349149367878881,
+"max": 0.7255381604696673
+},
+"w_agree": {
+"mean": 81.11360328686412,
+"min": 68.35092157094066,
+"max": 98.6444598271061
+},
+"w_kappa": {
+"mean": 0.5618757747147336,
+"min": 0.1695167689609587,
+"max": 0.97175869418393
+},
+"pct_unclear": {
+"mean": 0.0,
+"min": 0.0,
+"max": 0.0
+},
+"n_orderings": 6
+}
+}
+},
+"Granite-3.3-8B": {
+"model": "ibm-granite/granite-3.3-8b-instruct",
+"max_resp_chars": 1200,
+"table3_agree": 64.39,
+"c0_reproduces": true,
+"conditions": {
+"C0": {
+"model": "ibm-granite/granite-3.3-8b-instruct",
+"name": "Granite-3.3-8B",
+"condition": "C0",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.0": {
+"model": "ibm-granite/granite-3.3-8b-instruct",
+"name": "Granite-3.3-8B",
+"condition": "C1.0",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.1": {
+"model": "ibm-granite/granite-3.3-8b-instruct",
+"name": "Granite-3.3-8B",
+"condition": "C1.1",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.2": {
+"model": "ibm-granite/granite-3.3-8b-instruct",
+"name": "Granite-3.3-8B",
+"condition": "C1.2",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.3": {
+"model": "ibm-granite/granite-3.3-8b-instruct",
+"name": "Granite-3.3-8B",
+"condition": "C1.3",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.4": {
+"model": "ibm-granite/granite-3.3-8b-instruct",
+"name": "Granite-3.3-8B",
+"condition": "C1.4",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.5": {
+"model": "ibm-granite/granite-3.3-8b-instruct",
+"name": "Granite-3.3-8B",
+"condition": "C1.5",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C2": {
+"model": "ibm-granite/granite-3.3-8b-instruct",
+"name": "Granite-3.3-8B",
+"condition": "C2",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C3": {
+"model": "ibm-granite/granite-3.3-8b-instruct",
+"name": "Granite-3.3-8B",
+"condition": "C3",
+"mode": "constrained",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C4": {
+"model": "ibm-granite/granite-3.3-8b-instruct",
+"name": "Granite-3.3-8B",
+"condition": "C4",
+"mode": "constrained",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C5": {
+"model": "ibm-granite/granite-3.3-8b-instruct",
+"name": "Granite-3.3-8B",
+"condition": "C5",
+"mode": "constrained",
+"pct_refusal": 92.42424242424242,
+"agree": 58.333333333333336,
+"kappa": -0.094362375640639,
+"w_agree": 64.25833629784323,
+"w_kappa": -0.0007406506572120954,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 2,
+"GARBLED": 0,
+"REFUSAL": 3
+},
+"REFUSAL": {
+"COMPLY": 8,
+"GARBLED": 0,
+"REFUSAL": 77
+}
+}
+},
+"C1": {
+"pct_refusal": {
+"mean": 100.0,
+"min": 100.0,
+"max": 100.0
+},
+"agree": {
+"mean": 64.39393939393939,
+"min": 64.39393939393939,
+"max": 64.39393939393939
+},
+"kappa": {
+"mean": 0.0,
+"min": 0.0,
+"max": 0.0
+},
+"w_agree": {
+"mean": 64.30294422338528,
+"min": 64.30294422338528,
+"max": 64.30294422338528
+},
+"w_kappa": {
+"mean": 0.0,
+"min": 0.0,
+"max": 0.0
+},
+"pct_unclear": {
+"mean": 0.0,
+"min": 0.0,
+"max": 0.0
+},
+"n_orderings": 6
+}
+}
+},
+"Qwen2.5-14B": {
+"model": "Qwen/Qwen2.5-14B-Instruct",
+"max_resp_chars": 1200,
+"table3_agree": 65.15,
+"c0_reproduces": true,
+"conditions": {
+"C0": {
+"model": "Qwen/Qwen2.5-14B-Instruct",
+"name": "Qwen2.5-14B",
+"condition": "C0",
+"mode": "free",
+"pct_refusal": 99.24242424242425,
+"agree": 65.15151515151516,
+"kappa": 0.03373647358370465,
+"w_agree": 64.30852021407803,
+"w_kappa": 0.00025044622053748463,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 1,
+"REFUSAL": 4
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.0": {
+"model": "Qwen/Qwen2.5-14B-Instruct",
+"name": "Qwen2.5-14B",
+"condition": "C1.0",
+"mode": "free",
+"pct_refusal": 99.24242424242425,
+"agree": 65.15151515151516,
+"kappa": 0.03373647358370465,
+"w_agree": 64.30852021407803,
+"w_kappa": 0.00025044622053748463,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 1,
+"REFUSAL": 4
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.1": {
+"model": "Qwen/Qwen2.5-14B-Instruct",
+"name": "Qwen2.5-14B",
+"condition": "C1.1",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.2": {
+"model": "Qwen/Qwen2.5-14B-Instruct",
+"name": "Qwen2.5-14B",
+"condition": "C1.2",
+"mode": "free",
+"pct_refusal": 97.72727272727273,
+"agree": 66.66666666666667,
+"kappa": 0.09349149367878881,
+"w_agree": 68.47911343045106,
+"w_kappa": 0.17378548416652123,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 1,
+"GARBLED": 0,
+"REFUSAL": 41
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 2,
+"REFUSAL": 3
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.3": {
+"model": "Qwen/Qwen2.5-14B-Instruct",
+"name": "Qwen2.5-14B",
+"condition": "C1.3",
+"mode": "free",
+"pct_refusal": 98.48484848484848,
+"agree": 65.9090909090909,
+"kappa": 0.0611664295874822,
+"w_agree": 68.47353743975832,
+"w_kappa": 0.17356643400125674,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 1,
+"GARBLED": 0,
+"REFUSAL": 41
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 1,
+"REFUSAL": 4
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.4": {
+"model": "Qwen/Qwen2.5-14B-Instruct",
+"name": "Qwen2.5-14B",
+"condition": "C1.4",
+"mode": "free",
+"pct_refusal": 96.96969696969697,
+"agree": 66.66666666666667,
+"kappa": 0.10974862047823399,
+"w_agree": 68.24591310858959,
+"w_kappa": 0.16612070751295743,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 1,
+"REFUSAL": 41
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 3,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C1.5": {
+"model": "Qwen/Qwen2.5-14B-Instruct",
+"name": "Qwen2.5-14B",
+"condition": "C1.5",
+"mode": "free",
+"pct_refusal": 96.96969696969697,
+"agree": 66.66666666666667,
+"kappa": 0.10974862047823399,
+"w_agree": 68.24591310858959,
+"w_kappa": 0.16750611559943565,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 1,
+"REFUSAL": 41
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 3,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C2": {
+"model": "Qwen/Qwen2.5-14B-Instruct",
+"name": "Qwen2.5-14B",
+"condition": "C2",
+"mode": "free",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C3": {
+"model": "Qwen/Qwen2.5-14B-Instruct",
+"name": "Qwen2.5-14B",
+"condition": "C3",
+"mode": "constrained",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C4": {
+"model": "Qwen/Qwen2.5-14B-Instruct",
+"name": "Qwen2.5-14B",
+"condition": "C4",
+"mode": "constrained",
+"pct_refusal": 100.0,
+"agree": 64.39393939393939,
+"kappa": 0.0,
+"w_agree": 64.30294422338528,
+"w_kappa": 0.0,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 5
+},
+"REFUSAL": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 85
+}
+}
+},
+"C5": {
+"model": "Qwen/Qwen2.5-14B-Instruct",
+"name": "Qwen2.5-14B",
+"condition": "C5",
+"mode": "constrained",
+"pct_refusal": 90.15151515151516,
+"agree": 58.333333333333336,
+"kappa": -0.06186924089512927,
+"w_agree": 68.18457721096928,
+"w_kappa": 0.1648004035690412,
+"pct_unclear": 0.0,
+"confusion": {
+"COMPLY": {
+"COMPLY": 0,
+"GARBLED": 0,
+"REFUSAL": 42
+},
+"GARBLED": {
+"COMPLY": 1,
+"GARBLED": 2,
+"REFUSAL": 2
+},
+"REFUSAL": {
+"COMPLY": 10,
+"GARBLED": 0,
+"REFUSAL": 75
+}
+}
+},
+"C1": {
+"pct_refusal": {
+"mean": 98.23232323232322,
+"min": 96.96969696969697,
+"max": 100.0
+},
+"agree": {
+"mean": 65.90909090909092,
+"min": 64.39393939393939,
+"max": 66.66666666666667
+},
+"kappa": {
+"mean": 0.06798193963440728,
+"min": 0.0,
+"max": 0.10974862047823399
+},
+"w_agree": {
+"mean": 67.00932358747531,
+"min": 64.30294422338528,
+"max": 68.47911343045106
+},
+"w_kappa": {
+"mean": 0.11353819791678475,
+"min": 0.0,
+"max": 0.17378548416652123
+},
+"pct_unclear": {
+"mean": 0.0,
+"min": 0.0,
+"max": 0.0
+},
+"n_orderings": 6
+}
+}
+}
+},
+"best_condition": {
+"gemma-4-12b-it (control)": {
+"condition": "C1.4",
+"kappa": 0.8202302835211093,
+"reaches_0_6": true
+},
+"Qwen3-4B-Instruct": {
+"condition": "C0",
+"kappa": 0.0,
+"reaches_0_6": false
+},
+"Phi-4-mini": {
+"condition": "C2",
+"kappa": 0.03724394785847307,
+"reaches_0_6": false
+},
+"Llama-3.1-8B": {
+"condition": "C2",
+"kappa": 0.02801344645429804,
+"reaches_0_6": false
+},
+"gemma-2-9b": {
+"condition": "C1.2",
+"kappa": 0.7255381604696673,
+"reaches_0_6": true
+},
+"Granite-3.3-8B": {
+"condition": "C0",
+"kappa": 0.0,
+"reaches_0_6": false
+},
+"Qwen2.5-14B": {
+"condition": "C1.4",
+"kappa": 0.10974862047823399,
+"reaches_0_6": false
+}
+},
+"flagged_kappa_ge_0_6": [
+"gemma-2-9b"
+],
+"orderings": [
+[
+"REFUSAL",
+"COMPLY",
+"GARBLED"
+],
+[
+"REFUSAL",
+"GARBLED",
+"COMPLY"
+],
+[
+"COMPLY",
+"REFUSAL",
+"GARBLED"
+],
+[
+"COMPLY",
+"GARBLED",
+"REFUSAL"
+],
+[
+"GARBLED",
+"REFUSAL",
+"COMPLY"
+],
+[
+"GARBLED",
+"COMPLY",
+"REFUSAL"
+]
+],
+"exemplars_file": "e4/exemplars.md"
+}

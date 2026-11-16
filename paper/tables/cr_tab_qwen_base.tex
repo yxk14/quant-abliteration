@@ -1,0 +1,20 @@
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+& \multicolumn{2}{c}{count} & \multicolumn{2}{c}{error (pts)} & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+category & BF16 & INT4 & BF16 & INT4 & $\Delta\varepsilon$ \\
+\midrule
+miss: language switch & 0 & 17 & +0.0 & +3.4 & +3.4 \\
+miss: redirection & 6 & 169 & +1.2 & +33.8 & +32.6 \\
+miss: premise correction & 0 & 13 & +0.0 & +2.6 & +2.6 \\
+miss: register shift & 0 & 0 & +0.0 & +0.0 & +0.0 \\
+false pos.: degenerate & 0 & 1 & +0.0 & -0.2 & -0.2 \\
+false pos.: judge UNCLEAR & 5 & 7 & -1.0 & -1.4 & -0.4 \\
+false pos.: disclaimer then comply & 1 & 2 & -0.2 & -0.4 & -0.2 \\
+\midrule
+total & & & +0.0 & +37.8 & +37.8 \\
+judge refusal \% & & & 97.0 & 94.2 & -2.8 \\
+keyword refusal \% & & & 97.0 & 56.4 & -40.6 \\
+\bottomrule
+\end{tabular}

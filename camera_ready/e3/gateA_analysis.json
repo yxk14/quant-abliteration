@@ -1,0 +1,26 @@
+{
+"n": 40,
+"accuracy": 87.5,
+"kappa": 0.803921568627451,
+"confusion": {
+"premise_correction": {
+"premise_correction": 8,
+"redirection": 1,
+"register_shift": 4
+},
+"redirection": {
+"premise_correction": 0,
+"redirection": 19,
+"register_shift": 0
+},
+"register_shift": {
+"premise_correction": 0,
+"redirection": 0,
+"register_shift": 8
+}
+},
+"accuracy_ci": [
+73.19670826382796,
+95.81403738613832
+]
+}
